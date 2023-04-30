@@ -10,7 +10,7 @@ class Pension{
     private int $duree;
     private string $date_de_debut;
     private string $libelle;
-    private int $id_cheval;
+    private string $id_cheval;
     
     
     /*Constructor */
@@ -75,7 +75,7 @@ class Pension{
             return $sql->fetchAll (PDO::FETCH_ASSOC);
         }
         catch(PDOException $e){
-            return $this->errmessage.$e->getMessage();
+            return $e->getMessage();
         }        
     }
 }

@@ -3,7 +3,18 @@
 
 function add_cavRep(CavalierRepresentant $cavalierRep){
     global $con;
-    $sql = "INSERT INTO ".DB_TABLE_PERSONNE." (nom_personne,prenom_personne,date_de_naissance, mail,tel,photo, actif, num_licence, galop,rue, complement, code_postal, ville ) 
+    $mailToCompare = $_POST["mail"];
+    $mailExistSql = "SELECT COUNT(*) AS nb_mail_identiques FROM utilisateur WHERE nom_utilisateur = :mailToCompare";
+    $mailExistReq = $con->prepare($mailExistSql);
+    $mailExistReq->bindValue(":mailToCompare", $mailToCompare, PDO::PARAM_STR);
+    $mailExistReq->execute();
+    $res = $mailExistReq->fetchColumn();
+
+    if($res > 0) {
+        return false;
+    }
+    
+    $sql = "INSERT INTO ".DB_TABLE_PERSONNE."(nom_personne,prenom_personne,date_de_naissance, mail,tel,photo, actif, num_licence, galop,rue, complement, code_postal, ville ) 
                                     VALUES ( :nom, :prenom, :datenaissance, :mail, :tel, :photo, :actif, :numlic, :galop, :rue , :complement, :codepostal, :ville )";
     $req = $con->prepare($sql);
     $req->bindValue(":nom",$cavalierRep->getNomPersonne(),PDO::PARAM_STR);
@@ -21,7 +32,7 @@ function add_cavRep(CavalierRepresentant $cavalierRep){
     $req->bindValue(":ville",$cavalierRep->getVille(),PDO::PARAM_STR);
 
     try {
-        $req->execute() ;
+        $req->execute();
         return true; 
     } catch (PDOException $e) {
         return $e->getMessage();

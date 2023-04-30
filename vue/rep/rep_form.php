@@ -1,10 +1,12 @@
 <?php
-    $pagename = "Modifier Représentant"; 
+    if (isset($_SESSION['connecte']) && $_SESSION['connecte'] === true && $_SESSION['type'] === 'a'){
+
+    } else {
+        header('Location: http://localhost/tp_centre_equestre/');
+    }
+    $pagename = "Modifier Représentant " . $infosaved['rep_prenom'] ." ". $infosaved['rep_nom']; 
     require $headerpath; //Importe le header ('header.php')
 ?>
-<!-- Formulaire pré-rempli qui récupère les info relatives à l'utilisateur sélectionné dans 'rep_index.php'
-     Permet de modifier les infos en base
--->
 
 <head>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
@@ -88,7 +90,7 @@
                 <div class="row">
                     <div class="form-group col">
                         <label for="date">Date de Naissance</label>
-                        <input type="text" id="rep_dna" name="rep_dna" value="<?= isset($infosaved) ? $infosaved["rep_dna"] : "";  ?>" class="form-control">
+                        <input type="date" id="date" name="rep_dna" value="<?= isset($infosaved) ? $infosaved["rep_dna"] : "";  ?>" class="form-control">
                     </div>
                     <div class="form-group col">
                         <label for="mail">Mail</label>

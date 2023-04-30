@@ -1,4 +1,5 @@
 <?php
+require "../inc/bdd.inc.php";
 
 if(isset($_POST["index"])){
 

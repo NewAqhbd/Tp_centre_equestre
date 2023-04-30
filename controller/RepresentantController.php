@@ -54,6 +54,7 @@ if (isset($_POST["modify_validation"])){ //Modifie les infos relative à une per
     );
 
     update_rep($representant, $_POST["rep_id"]);
+    $data = get_all_rep();
     return require_once "../vue/rep/rep_index.php";
 
 }

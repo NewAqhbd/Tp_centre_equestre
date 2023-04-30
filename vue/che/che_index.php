@@ -1,10 +1,15 @@
 <?php
- $pagename = "Cavalier";
- require $headerpath;
+if (isset($_SESSION['connecte']) && $_SESSION['connecte'] === true && $_SESSION['type'] === 'a'){
+
+} else {
+    header('Location: http://localhost/tp_centre_equestre/');
+}
+$pagename = "Cavalier";
+require $headerpath;
 ?>
 
 <head>
-         
+    <meta charset="utf-8">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
@@ -38,6 +43,15 @@
         if(isset($data) && $data !== null){
         //Loop sur les éléments de la requête SQL pour affichage
             foreach ($data as $che) {
+                $sql = "SELECT nom_personne FROM personne WHERE id_personne = :id";
+                $req = $con->prepare($sql);
+                $req->bindValue(":id", $che["id_cav"], PDO::PARAM_INT);
+                try {
+                    $req->execute();
+                } catch (PDOException $e){
+                    return $e->getMessage();
+                }
+                $nom_propietaire = $req->fetchColumn();
             ?>
                 <!-- Dialog box -->
                 <div id="dialog_del<?= $che["id_cheval"]; ?>" title="Voulez-vous réellement SUPPRIMER ce cheval ?"></div>
@@ -68,7 +82,7 @@
                     <td><?= $che["nom_cheval"] ?></td>
                     <td><?= $che["SIRE"] ?></td>
                     <td><?= $rob[$che["id_robe"]-1]["libelle_robe"] ?></td>
-                    <td><?= isset($che["id_cav"]) && $che["id_cav"] != "" ? $che["id_cav"] : "" ?></td>
+                    <td><?= $nom_propietaire ?></td>
 
                     <!-- Modifier -->
                     <td>

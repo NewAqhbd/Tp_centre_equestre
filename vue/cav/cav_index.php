@@ -1,10 +1,14 @@
 <?php
+if (isset($_SESSION['connecte']) && $_SESSION['connecte'] === true && $_SESSION['type'] === 'a'){
+
+} else {
+    header('Location: http://localhost/tp_centre_equestre/');
+}
 $pagename = "Cavalier";
 require $headerpath;
 ?>
 
 <head>
-         
     <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
@@ -71,7 +75,7 @@ require $headerpath;
                     <td><?= $cav["nom_personne"] ?></td>
                     <td><?= $cav["prenom_personne"] ?></td>
                     <td><?= $cav["num_licence"] ?></td>
-                    <td><?= $cav["date_de_naissance"] ?></td>
+                    <td><?= date('d/m/Y', strtotime($cav["date_de_naissance"])) ?></td>
 
                     <td>
                         <form action="../controller/CavalierController.php" method="post">

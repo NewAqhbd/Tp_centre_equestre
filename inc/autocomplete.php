@@ -13,6 +13,6 @@ $req->execute();
 $data = $req->fetchAll();           // On récupère les résultats 
 foreach ($data as $key) {   
 
-    echo '<p class="list_name" value="'.$key['id_personne'].'" onclick="setInputValue(this)">'.$key['nom_personne'].' '.$key['prenom_personne'].'</p>';
+    echo '<p class="list_name" value="'.$key['id_personne'].'" onclick="setInputValueCav(this)">'.$key['nom_personne'].' '.$key['prenom_personne'].'</p>';
 
 }

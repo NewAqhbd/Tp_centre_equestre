@@ -13,8 +13,8 @@ function get_all_cav()
     $req->bindValue(':val',"",PDO::PARAM_STR);
     
     try {
-         $req->execute();
-         return $req->fetchAll();
+        $req->execute();
+        return $req->fetchAll();
     } catch (PDOException $e) {
         return $e->getMessage();
     }
@@ -30,14 +30,28 @@ function get_one_cav(int $id){
         $req->execute();
         return $req->fetch();
     } catch (PDOException $e) {
-       return $e->getMessage();
-   }
+        return $e->getMessage();
+        return false;
+    }
 }
 
 
 function add_cav(Cavalier $cavalier)
 {
     global $con;
+    $mailCavToCompare = $_POST["mail"];
+    $mailRepToCompare = $_POST["mailrep"];
+    $mailExistSql = "SELECT COUNT(*) AS nb_mail_identiques FROM utilisateur WHERE nom_utilisateur = :mailCavToCompare OR nom_utilisateur = :mailRepToCompare";
+    $mailExistReq = $con->prepare($mailExistSql);
+    $mailExistReq->bindValue(":mailCavToCompare", $mailCavToCompare, PDO::PARAM_STR);
+    $mailExistReq->bindValue(":mailRepToCompare", $mailRepToCompare, PDO::PARAM_STR);
+
+    $mailExistReq->execute();
+    $res = $mailExistReq->fetchColumn();
+
+    if($res > 0) {
+        return false;
+    }
     $sql = "INSERT INTO ".DB_TABLE_PERSONNE." (nom_personne, prenom_personne, date_de_naissance, mail, tel, photo, actif, num_licence, galop) 
                                     VALUES ( :nom, :prenom, :datenaissance, :mail, :tel, :photo, :actif, :numlic, :galop )";
     $req = $con->prepare($sql);
@@ -70,9 +84,9 @@ function soft_delete_cav_by_id(int $id){
         
         $req->execute();
         return true;
-   } catch (PDOException $e) {
-       return $e->getMessage();
-   }
+    } catch (PDOException $e) {
+        return $e->getMessage();
+    }
 }
 
 

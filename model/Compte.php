@@ -3,8 +3,9 @@
 function add_compte_u($username, $mdp){ //Ajoute un utilisateur
     $type = "u";
     global $con;
-    $sql = "INSERT INTO ".DB_TABLE_UTILISATEUR." (nom_utilisateur, mdp, type) VALUES (:user, :mdp, :type);";
+    $sql = "INSERT INTO ".DB_TABLE_UTILISATEUR." (id_personne, nom_utilisateur, mdp, type) VALUES (:id_pers, :user, md5(:mdp), :type);";
     $req = $con->prepare($sql);
+    $req->bindValue(':id_pers', $con->lastInsertId(), PDO::PARAM_STR);
     $req->bindValue(':user', $username, PDO::PARAM_STR);
     $req->bindValue(':mdp', $mdp, PDO::PARAM_STR);
     $req->bindValue(':type', $type, PDO::PARAM_STR);
@@ -17,14 +18,12 @@ function add_compte_u($username, $mdp){ //Ajoute un utilisateur
     }
 }
 
-function add_compte_a(){ //Ajoute un administrateur
-    $username = $_POST['username'];
-    $mdp = md5($_POST['mdp']);
+function add_compte_a($username, $mdp){ //Ajoute un administrateur
     $type = "a";
     global $con;
-    $sql = "INSERT INTO ".DB_TABLE_UTILISATEUR." (nom_utilisateur, mdp, type) VALUES (:user, :mdp, :type);";
+    $sql = "INSERT INTO ".DB_TABLE_UTILISATEUR." (id_personne, nom_utilisateur, mdp, type) VALUES (:id_pers, :user, md5(:mdp), :type);";
     $req = $con->prepare($sql);
-    //FAIRE PARAM
+    $req->bindValue(':id_pers', $con->lastInsertId(), PDO::PARAM_INT);
     $req->bindValue(':user', $username, PDO::PARAM_STR);
     $req->bindValue(':mdp', $mdp, PDO::PARAM_STR);
     $req->bindValue(':type', $type, PDO::PARAM_STR);

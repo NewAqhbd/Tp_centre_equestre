@@ -1,4 +1,9 @@
 <?php
+if (isset($_SESSION['connecte']) && $_SESSION['connecte'] === true && $_SESSION['type'] === 'a'){
+
+} else {
+    header('Location: http://localhost/tp_centre_equestre/');
+}
 $pagename = "Cheval : ".$data["nom_cheval"]." ".$data["SIRE"];
 require $headerpath;
 ?>
@@ -82,7 +87,7 @@ require $headerpath;
                                 <td><?= $data["nom_cheval"] ?></td>
                                 <td><?= $data["SIRE"] ?></td>
                                 <td><?php 
-                                        $robe = get_rob_by_id($data["id_robe"]) ; 
+                                        $robe = get_one_rob($data["id_robe"]) ; 
                                         echo $robe["libelle_robe"] 
                                     ?></td>
                             </tr>

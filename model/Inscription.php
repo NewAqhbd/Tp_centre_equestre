@@ -11,8 +11,8 @@ function get_all_ins()
     $req = $con->prepare($sql);
     $req->bindValue(':valid',1,PDO::PARAM_INT);
     try {
-         $req->execute();
-         return $req->fetchAll();
+        $req->execute();
+        return $req->fetchAll();
     } catch (PDOException $e) {
         return $e->getMessage();
     }
@@ -27,9 +27,9 @@ function get_one_ins(int $id){
     try {
         $req->execute();
         return $req->fetch();
-   } catch (PDOException $e) {
-       return $e->getMessage();
-   }
+    } catch (PDOException $e) {
+        return $e->getMessage();
+    }
 }
 
 function get_ins_one_cav(int $id){
@@ -41,9 +41,9 @@ function get_ins_one_cav(int $id){
     try {
         $req->execute();
         return $req->fetchAll();
-   } catch (PDOException $e) {
-       return $e->getMessage();
-   }
+    } catch (PDOException $e) {
+        return $e->getMessage();
+    }
 }
 
 
@@ -78,9 +78,9 @@ function soft_delete_ins_by_id(int $id){
     try {
         $req->execute();
         return true;
-   } catch (PDOException $e) {
-       return $e->getMessage();
-   }
+    } catch (PDOException $e) {
+        return $e->getMessage();
+    }
 }
 
 

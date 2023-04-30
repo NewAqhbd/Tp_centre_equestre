@@ -1,7 +1,11 @@
 <?php
+if (isset($_SESSION['connecte']) && $_SESSION['connecte'] === true && $_SESSION['type'] === 'a'){
+
+} else {
+    header('Location: http://localhost/tp_centre_equestre/');
+}
 $pagename = "Représentant : ".$rep["nom_personne"]." ".$rep["prenom_personne"];
 require $headerpath;
-
 ?>
 
 <head>
@@ -39,9 +43,9 @@ require $headerpath;
 
 
 <div class="container">
+    <p>Information Générale</p>
     <div class="row">
-        <p>Information Générale</p>
-        <div class="col">
+        <div class="col-10">
             <table style="width:100%;">
                 <thead>
                     <th>Nom</th>
@@ -51,18 +55,19 @@ require $headerpath;
                     <th>Telephone</th>
                 </thead>
                 <tbody>
-                    <?php if (isset($rep) ) { ?>
-                    <th>Information Représentant</th>
                     <tr>  
                         <td><?= $rep["nom_personne"] ?></td>
                         <td><?= $rep["prenom_personne"] ?></td>
-                        <td><?= $rep["date_de_naissance"] ?></td>
+                        <td><?= date('d/m/Y', strtotime($rep["date_de_naissance"])) ?></td>
                         <td><?= $rep["mail"] ?></td>
                         <td><?= $rep["tel"] ?></td>
                     </tr>
-                <?php } ?>
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-2">
+            <img src="http://localhost/tp_centre_equestre/media/<?= isset($data) && $data["photo"] != "" ? $data["photo"] : "default.jpg"  ?>" alt="">
+        </div>
         <div class="container-fluid">
             <!-- Option Modifier -->
             <form action="" method="post" class="d-inline" >

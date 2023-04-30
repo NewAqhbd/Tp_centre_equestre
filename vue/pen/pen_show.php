@@ -1,7 +1,11 @@
 <?php
+if (isset($_SESSION['connecte']) && $_SESSION['connecte'] === true && $_SESSION['type'] === 'a'){
+
+} else {
+    header('Location: http://localhost/tp_centre_equestre/');
+}
 $pagename = "Affichage";
 require $headerpath;
-
 ?>
 
 <head>
@@ -53,9 +57,9 @@ require $headerpath;
                     <tr>
                         <td><?= $data["libelle_pension"] ?></td>
                         <td><?= $data["tarif"] ?>€</td>
-                        <td><?= $data["date_de_debut"] ?></td>
-                        <td><?= $ddf["date_de_fin"] ?></td>
-                        <td><?= $data["id_cheval"] ?></td>
+                        <td><?= date('d/m/Y', strtotime($data["date_de_debut"])) ?></td>
+                        <td><?= date('d/m/Y', strtotime($ddf["date_de_fin"])) ?></td>
+                        <td><?= $che_nom ?></td>
                     </tr>
                 </tbody>
             </table>

@@ -1,8 +1,11 @@
 <?php
+if (isset($_SESSION['connecte']) && $_SESSION['connecte'] === true && $_SESSION['type'] === 'a'){
+
+} else {
+    header('Location: http://localhost/tp_centre_equestre/');
+}
 $pagename = "Pensions";
 require $headerpath;
-
-
 ?>
 
 <head>
@@ -71,8 +74,8 @@ require $headerpath;
                 <!-- Dialog box -->
                 <tr>
                     <td><?= $che["nom_cheval"] ?></td>
-                    <td><?= $pen["date_de_debut"] ?></td>
-                    <td><?= $ddf["date_de_fin"] ?></td>
+                    <td><?= date('d/m/Y', strtotime($pen["date_de_debut"])) ?></td>
+                    <td><?= date('d/m/Y', strtotime($ddf["date_de_fin"])) ?></td>
                     <td><?= $pen["libelle_pension"] ?></td>
                     <td><?= $pen["tarif"] ?>€</td>
 

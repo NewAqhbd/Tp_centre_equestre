@@ -1,5 +1,10 @@
 <?php
-$pagename = "Formulaire pour Cavalier";
+if (isset($_SESSION['connecte']) && $_SESSION['connecte'] === true && $_SESSION['type'] === 'a'){
+
+} else {
+    header('Location: http://localhost/tp_centre_equestre/');
+}
+$pagename = "Formulaire pour Inscription";
 require $headerpath;
 ?>
 <body>

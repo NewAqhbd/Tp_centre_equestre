@@ -1,6 +1,11 @@
 <?php
- $pagename = "Cavalier";
- require $headerpath;
+if (isset($_SESSION['connecte']) && $_SESSION['connecte'] === true && $_SESSION['type'] === 'a'){
+
+} else {
+    header('Location: http://localhost/tp_centre_equestre/');
+}
+$pagename = "Inscriptions";
+require $headerpath;
 ?>
 
 <body>
@@ -11,27 +16,34 @@
 <table id="ins_list">
     <thead>
         <tr>
-            <th>id</th>
+            <th>Cavalier</th>
             <th>Cottisation Club</th>
             <th>Cottisation FFE</th>
-            <th>Année</th>
-            <th>Cavalier</th>
+            <th>Date</th>
             <th>Modifier</th>
             <th>Supprimer</th>
         </tr>
     </thead>
     <tbody>
         <?php
-        //Loop sur les éléments de la requête SQL pour affichage
         if(isset($data) && $data !== null){
             foreach ($data as $ins) {
+                $sql = "SELECT nom_personne FROM personne WHERE id_personne = :id";
+                $req = $con->prepare($sql);
+                $req->bindValue(":id", $ins["id_cav"], PDO::PARAM_INT);
+                try {
+                    $req->execute();
+                } catch (PDOException $e){
+                    return $e->getMessage();
+                }
+                $nom = $req->fetchColumn();
+
                 ?>
                     <tr>
-                        <td><?= $ins["id_inscription"] ?></td>
-                        <td><?= $ins["montant_cotisation"] ?></td>
-                        <td><?= $ins["montant_ffe"] ?></td>
-                        <td><?= $ins["annee"] ?></td>
-                        <td><?= $ins["id_cav"] ?></td>
+                        <td><?= $nom ?></td>
+                        <td><?= $ins["montant_cotisation"] ?>€</td>
+                        <td><?= $ins["montant_ffe"] ?>€</td>
+                        <td><?= date('d/m/Y', strtotime($ins["annee"])) ?></td>
 
                         <td>
                             <form action="" method="post">

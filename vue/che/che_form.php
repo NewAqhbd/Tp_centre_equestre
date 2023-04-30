@@ -1,9 +1,15 @@
 <?php
+if (isset($_SESSION['connecte']) && $_SESSION['connecte'] === true && $_SESSION['type'] === 'a'){
+
+} else {
+    header('Location: http://localhost/tp_centre_equestre/');
+}
 $pagename = "Formulaire pour Cavalier";
 require $headerpath;
 ?>
 
 <head>
+    <meta charset="utf-8">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
@@ -97,11 +103,11 @@ else{ ?>
         <div class="row justify-content-md-center">
             <div class="form-group col">
                 <label for="iNomCheval">Nom du Cheval*</label>
-                <input type="text" name="nom_cheval" value="<?= isset($infosaved) ? $infosaved["nom_cheval"] : "";  ?>" class="form-control" id="iNomCheval" placeholder="" required>
+                <input type="text" name="nom_cheval" id="nom_cheval" value="<?= isset($infosaved["nom_cheval"]) ? $infosaved["nom_cheval"] : "";  ?>" class="form-control" required>
             </div>
             <div class="form-group col">
                 <label for="iSire">N° SIRE</label>
-                <input type="text" pattern="[0-9]{9}" name="sire" value="<?= isset($infosaved) ? $infosaved["sire"] : "";  ?>" class="form-control" id="iSire" placeholder="9 chiffres" required>
+                <input type="text" pattern="[0-9]{9}" name="sire" value="<?= isset($infosaved["sire"]) && $infosaved["sire"] != "" ? $infosaved["sire"] : "";  ?>" class="form-control" id="iSire" placeholder="9 chiffres" required>
             </div>
             <div class="form-group col">
                 <label for="iSelectRobe">Robe*</label>
@@ -122,18 +128,18 @@ else{ ?>
             </div>
 
             <div class="form-group col">
-                <label for="iPhotoCavalier">Photo*</label>
+                <label for="iPhotoCheval">Photo</label>
                 <input type="file" name="photo_cheval" class="form-control" id="iPhotoCheval" style="display:none;" onchange="">
-                <img  id="imgCheval" src="<?= isset($infosaved['photo_cheval']) && $infosaved['photo_cheval'] != ''  ? "http://localhost/2a/tp_centre_equestre/media/".$infosaved['photo_cheval'] : "http://placekitten.com/200" ?>" alt="" onclick="openFileDialog()" >
+                <img  id="imgCheval" src="<?= isset($infosaved['photo_cheval']) && $infosaved['photo_cheval'] != ''  ? "http://localhost/tp_centre_equestre/media/".$infosaved['photo_cheval'] : "http://localhost/tp_centre_equestre/media/choose-image.png" ?>" alt="" onclick="openFileDialog()" >
             </div>
         </div>
 
             <!-- CHOIX DU PROPRIETAIRE -->
             <div class="form-group col">
                 <label for="nom_proprietaire">Nom du Proprietaire*</label>
-                <input type="text" name="nom_cav" id="nom_proprietaire" value="<?= isset($infosaved["nom_cav"]) && $infosaved["nom_cav"] != "" ? $infosaved["nom_cav"] : "";  ?>" onkeyup = "autocomplet()" class="form-control">
+                <input type="text" name="nom_cav" id="nom_proprietaire" value="<?= isset($infosaved["nom_cav"]) && $infosaved["nom_cav"] != "" ? $infosaved["nom_cav"] : "";  ?>" onkeyup = "autocomplete_cav()" class="form-control" required>
                 <input type="hidden" name="id_cav" id="id_proprietaire" value="<?= isset($infosaved) && $infosaved["id_cav"] != "" ? $infosaved["id_cav"] : "";  ?>" class="form-control">
-                <ul id="list_cav"></ul>
+                <ul id="list_cavalier"></ul>
             </div>
 
             <?php if(isset($update) && $update == true ){ ?>
@@ -159,15 +165,15 @@ else{ ?>
 
 
 <script>
-    function setInputValue(e)
+    function setInputValueCav(e)
     {
         //console.log(list);
         $("#id_proprietaire").val(e.getAttribute('value'))
         $("#nom_proprietaire").val(e.innerHTML )
-        $("#list_cav").hide();
+        $("#list_cavalier").hide();
     }
 
-    function autocomplet()
+    function autocomplete_cav()
     {
         var min_length = 2
         var keyword = $("#nom_proprietaire").val()
@@ -178,13 +184,13 @@ else{ ?>
                 url: "../inc/autocomplete.php",
                 data : {keyword :keyword},
                 success:function(data){
-                    $('#list_cav').show();
-                    $('#list_cav').html(data);
+                    $('#list_cavalier').show();
+                    $('#list_cavalier').html(data);
                 }
             })
         }
     }
-       
+
     let iFile = document.getElementById('iPhotoCheval')
     
     function openFileDialog()

@@ -22,14 +22,26 @@ function get_one_rep(int $id){
     try {
         $req->execute();
         return $req->fetch();
-   } catch (PDOException $e) {
-       return $e->getMessage();
-   }
+    } catch (PDOException $e) {
+        return $e->getMessage();
+    }
 }
 
 function add_rep(Representant $representant)
 {
     global $con;
+    $mailCavToCompare = $_POST["mail"];
+    $mailRepToCompare = $_POST["mailrep"];
+    $mailExistSql = "SELECT COUNT(*) AS nb_mail_identiques FROM utilisateur WHERE nom_utilisateur = :mailCavToCompare OR nom_utilisateur = :mailRepToCompare";
+    $mailExistReq = $con->prepare($mailExistSql);
+    $mailExistReq->bindValue(":mailCavToCompare", $mailCavToCompare, PDO::PARAM_STR);
+    $mailExistReq->bindValue(":mailRepToCompare", $mailRepToCompare, PDO::PARAM_STR);
+    $mailExistReq->execute();
+    $res = $mailExistReq->fetchColumn();
+
+    if($res > 0) {
+        return false;
+    }
     $sql = "INSERT INTO ".DB_TABLE_PERSONNE." (nom_personne,prenom_personne,date_de_naissance,mail,tel,actif,rue,complement,code_postal,ville ) 
                                     VALUES ( :nom, :prenom, :datenaissance, :mail, :tel, :actif, :rue , :complement, :codepostal , :ville )";
     $req = $con->prepare($sql);

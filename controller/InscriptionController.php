@@ -14,6 +14,7 @@ $headerpath = "../vue/header.php";
 if(isset($_POST["action"]) && $_POST["action"] == "index"){
     
     $data = get_all_ins();
+    $cav = get_all_cav();
 
     return require_once "../vue/ins/ins_index.php";
 }
@@ -94,7 +95,6 @@ if(isset($_POST["action"]) && $_POST["action"] == "form"){
                 echo $error;
                 return require_once "../vue/ins/ins_form.php";
             }else {
-                //var_dump(update_cavRep($inscription,$_POST["id_personne"]));
                 $data = get_all_ins();
                 return require_once "../vue/ins/ins_index.php";
             }

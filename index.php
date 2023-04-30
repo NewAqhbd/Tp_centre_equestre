@@ -1,5 +1,5 @@
 <?php 
-  $pagename = "Centre Equestre de XXXX";
+  $pagename = "Centre Equestre";
   include "./inc/bdd.inc.php"; 
   include dirname(__FILE__)."/vue/header.php";
 
@@ -43,25 +43,25 @@
       <!-- Swiper-->
       <section class="section swiper-container swiper-slider swiper-slider-2 swiper-slider-3" data-loop="true" data-autoplay="5000" data-simulate-touch="false" data-slide-effect="fade">
         <div class="swiper-wrapper text-sm-left">
-          <div class="swiper-slide context-dark" data-slide-bg="media/stock-photo-trainer-feeding-horse-28220368.jpg">
+          <div class="swiper-slide context-dark" data-slide-bg="media/accueil-photo-1.jpg">
             <div class="swiper-slide-caption section-md">
               <div class="container">
                 <div class="row">
                   <div class="col-sm-9 col-md-8 col-lg-7 col-xl-7 offset-lg-1 offset-xxl-0">
                     <h1 class="oh swiper-title"><span class="d-inline-block" data-caption-animate="slideInUp" data-caption-delay="0">Centre Equestre Qualifié</span></h1>
-                    <p class="big swiper-text" data-caption-animate="fadeInLeft" data-caption-delay="300">Des cours pour enfant et cavaliers aguéris</p>
+                    <p class="big swiper-text" data-caption-animate="fadeInLeft" data-caption-delay="300">Des cours pour enfants et cavaliers aguéris</p>
                     <div class="button-wrap oh"><a class="button button-lg button-primary button-winona button-shadow-2" href="#" data-caption-animate="slideInUp" data-caption-delay="0">Rencontrer nos moniteurs</a></div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          <div class="swiper-slide context-dark" data-slide-bg="media/stock-photo-welsh-pony-running-and-standing-in-high-grass-long-mane-brown-horse-galloping-brown-horse-1175510683.jpg">
+          <div class="swiper-slide context-dark" data-slide-bg="media/accueil-photo-5.jpg">
             <div class="swiper-slide-caption section-md">
               <div class="container">
                 <div class="row">
-                  <div class="col-sm-8 col-lg-7 offset-lg-1 offset-xxl-0">
-                    <h1 class="oh swiper-title"><span class="d-inline-block" data-caption-animate="slideInDown" data-caption-delay="0">Parmis les plus beaux environnement de la correze</span></h1>
+                  <div class="col-sm-8 col-lg-8 offset-lg-1 offset-xxl-0">
+                    <h1 class="oh swiper-title"><span class="d-inline-block" data-caption-animate="slideInDown" data-caption-delay="0">Parmis les plus beaux environnements de la corrèze</span></h1>
                     <p class="big swiper-text" data-caption-animate="fadeInRight" data-caption-delay="300">Grâçe à 2 milles hectares de végétation au coeur de la plus belle région de France</p>
                     <div class="button-wrap oh"><a class="button button-lg button-primary button-winona button-shadow-2" href="#" data-caption-animate="slideInUp" data-caption-delay="0">Découvrez le centre</a></div>
                   </div>
@@ -133,12 +133,15 @@
             <div class="col-sm-6 col-lg-4">
               <div class="oh-desktop">
                 <!-- Services Terri-->
-                <article class="services-terri wow slideInDown">
-                  <div class="services-terri-figure"><img src="media/stock-photo-welsh-pony-running-and-standing-in-high-grass-long-mane-brown-horse-galloping-brown-horse-1175510683.jpg" alt="" width="370" height="278"/>
-                  </div>
-                  <div class="services-terri-caption"><span class="services-terri-icon linearicons-heart"></span>
-                    <h5 class="services-terri-title"><a href="#">Nos cheveaux</a></h5>
-                  </div>
+                <article class="services-terri wow slideInDown">  
+                    <div class="services-terri-figure"><img src="media/stock-photo-welsh-pony-running-and-standing-in-high-grass-long-mane-brown-horse-galloping-brown-horse-1175510683.jpg" alt="" width="370" height="278"/>
+                    </div>
+                    <div class="services-terri-caption"><span class="services-terri-icon linearicons-heart"></span>
+                      <form action="./controller/ChevalController.php" method="post">
+                        <input type="hidden" name="front_che">
+                        <h5 class="services-terri-title"><input value="Nos chevaux" type="submit"></h5>
+                      </form>
+                    </div>
                 </article>
               </div>
             </div>
@@ -171,14 +174,14 @@
       </section>
 
       <!-- Section CTA-->
-      <section class="primary-overlay section parallax-container" data-parallax-img="media/stock-photo-beautiful-draft-horse-on-the-pasture-large-horse-bred-to-be-a-working-animal-doing-hard-tasks-such-1860914509.jpg  ">
+      <section class="primary-overlay section parallax-container" data-parallax-img="media/accueil-photo-3.jpg  ">
         <div class="parallax-content section-xl context-dark text-md-left">
           <div class="container">
             <div class="row justify-content-end">
               <div class="col-sm-8 col-md-7 col-lg-5">
                 <div class="cta-modern">
                   <h3 class="cta-modern-title wow fadeInRight">Notre Histoire</h3>
-                  <p class="lead">Parmis les premiers centre equestre de la region, il a été fondé au coeur d'une des plus belle forêt de France</p>
+                  <p class="lead">Parmis les premiers centres équestre de la région, il a été fondé au coeur d'une des plus belles forêts de France</p>
                 </div>
               </div>
             </div>
@@ -249,24 +252,24 @@
       <!-- Tell-->
       <section class="section section-sm section-first bg-default">
         <div class="container">
-          <h3 class="heading-3">Contacter nous</h3>
+          <h3 class="heading-3">Contactez-nous</h3>
           <form class="rd-form rd-mailform form-style-1" data-form-output="form-output-global" data-form-type="contact" method="post" action="bat/rd-mailform.php">
             <div class="row row-20 gutters-20">
               <div class="col-md-6 col-lg-6 oh-desktop">
                 <div class="form-wrap wow slideInDown">
                   <input class="form-input" id="contact-your-name-6" type="text" name="name" data-constraints="@Required">
-                  <label class="form-label" for="contact-your-name-6">Your Name*</label>
+                  <label class="form-label" for="contact-your-name-6">Votre nom (obligatoire)</label>
                 </div>
               </div>
               <div class="col-md-6 col-lg-6 oh-desktop">
                 <div class="form-wrap wow slideInUp">
                   <input class="form-input" id="contact-email-6" type="email" name="email" data-constraints="@Email @Required">
-                  <label class="form-label" for="contact-email-6">Your E-mail*</label>
+                  <label class="form-label" for="contact-email-6">Votre e-mail (obligatoire)</label>
                 </div>
               </div>
               <div class="col-12">
                 <div class="form-wrap wow fadeIn">
-                  <label class="form-label" for="contact-message-6">Message</label>
+                  <label class="form-label" for="contact-message-6">Message (obligatoire)</label>
                   <textarea class="form-input textarea-lg" id="contact-message-6" name="message" data-constraints="@Required"></textarea>
                 </div>
               </div>

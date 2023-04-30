@@ -7,13 +7,23 @@ if(!isset($_SESSION)){
 
 }
 
-if(!isset($_SESSION['connecte'])){
+if(!isset($_SESSION['connecte']) || !isset($_SESSION['type'])){
 
     $_SESSION['connecte'] = False;
+    $_SESSION['type'] = null;
     
 }
 
-if(isset($_SESSION['connecte']) && $_SESSION['connecte'] == False && !isset($_POST["inscription"])){ 
+//WhiteList des liens accessibles sans connexion
+if(isset($_SESSION['connecte']) 
+    && $_SESSION['connecte'] == False 
+    && !isset($_POST["inscription"]) 
+    && !isset($_POST["create_account"]) 
+    && !isset($_POST["create_account_admin"]) 
+    && !isset($_POST["front_che"])
+    && !isset($_POST["che_details"])
+    ){ 
+
     if($actual_link !== "http://localhost/tp_centre_equestre/") {?>
     <script>window.location.replace('../vue/connexion.php')</script>
 <?php }}
@@ -26,7 +36,7 @@ try {
     $password = "";
     $dbname = "tp_centre_equestre";
 
-    $con = new PDO("mysql:host=$hostname;dbname=$dbname", $username, $password);
+    $con = new PDO("mysql:host=$hostname;dbname=$dbname;charset=utf8mb4", $username, $password);
     //echo "Connected to database";
 }catch(PDOException $e) {
     echo $e->getMessage();

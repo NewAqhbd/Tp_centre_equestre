@@ -25,6 +25,20 @@ function create_pension(Pension $pension){
     }
 }
 
+function create_est_pensionnaire($idPen, $idCav) {
+    global $con;
+    $sql = "INSERT INTO est_pensionnaire(id_pension, id_personne) VALUES(:idPen, :idCav)";
+    $req = $con->prepare($sql);
+    $req->bindValue(':idPen', $idPen, PDO::PARAM_INT);
+    $req->bindValue(':idCav', $idCav, PDO::PARAM_INT);
+    try {
+        $req->execute();
+        return true;
+    } catch (PDOException $e) {
+        return $e->getMessage();
+    }
+}
+
 /* READ / SELECT
  * 
  * Selectionne toutes les pensions de la table
@@ -54,9 +68,9 @@ function get_one_pen(int $id){
     try {
         $req->execute();
         return $req->fetch();
-   } catch (PDOException $e) {
-       return $e->getMessage();
-   }
+    } catch (PDOException $e) {
+        return $e->getMessage();
+    }
 }
 
 /* UPDATE
@@ -88,6 +102,20 @@ function update_pension(Pension $pension, int $id){
     }
 }
 
+function update_est_pensionnaire($idCav) {
+    global $con;
+    $sql = "UPDATE est_pensionnaire SET id_personne = :idCav";
+    $req = $con->prepare($sql);
+    $req->bindValue(':idCav', $idCav, PDO::PARAM_INT);
+
+    try{
+        $req->execute();
+        return true;
+    } catch (PDOException $e) {
+        return $e->getMessage();
+    }
+}
+
 
 /* DELETE
  * 
@@ -104,10 +132,10 @@ function soft_delete_pen_by_id(int $id){
     try {
         $req->execute();
         return true;
-   } 
-   catch (PDOException $e) {
-       return $e->getMessage();
-   }
+    } 
+    catch (PDOException $e) {
+        return $e->getMessage();
+    }
 }
 
 
@@ -126,7 +154,7 @@ function get_pen_che(int $id){
     $req->bindValue(':id', $id, PDO::PARAM_INT);
     
     try {
-        $con->execute($sql);
+        $req->execute();
         return $req->fetchAll (PDO::FETCH_ASSOC);
     }
     catch (PDOException $e) {
@@ -142,7 +170,7 @@ function get_date_de_fin(int $id){
             WHERE id_pension = :id ;";
     
     $req = $con->prepare($sql);
-   
+
     $req->bindValue(":id", $id, PDO::PARAM_INT);
     
     try {
@@ -157,7 +185,7 @@ function get_date_de_fin(int $id){
  * 
  * Reourne le ou les cavaliers d'une pension
  * 
- 
+
 function get_cav_pen (int $id)
 {
     global $con;

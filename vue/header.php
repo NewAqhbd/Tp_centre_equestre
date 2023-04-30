@@ -52,7 +52,7 @@ $home_link_index = "http://localhost/tp_centre_equestre/index.php";
     <![endif]-->
 </head>
 
-<?php if ($actual_link !== $home_link && $actual_link !== $home_link_index) { ?>
+<?php if ($actual_link !== $home_link && $actual_link !== $home_link_index) { //Quand sur page autre que l'accueil ?>
     <nav class="navbar navbar-expand-lg bg-light">
         <div class="container-fluid">
             <div class="collapse navbar-collapse">
@@ -61,74 +61,31 @@ $home_link_index = "http://localhost/tp_centre_equestre/index.php";
                     <button class="navbar-brand" type="submit" name="index">Accueil</button>
                 </form>
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <form action="../controller/AccueilController.php" method="post">
-                            <button type="submit" name="dashboard">Dashboard</button>
-                        </form>
-                    </li>
-                    <li class="nav-item">
-                        <form action="../controller/RepresentantController.php" method="post">
-                            <button type="submit" name="showAll">Représentants</button>
-                        </form>
-                    </li>
-
-                    <li class="nav-item">
-                        <form action="../controller/CavalierController.php" method="post">
-                            <button type="submit" name="action" value="index">Cavaliers</button>
-                        </form>
-                    </li>
-
-                    <?php
-                    if (isset($_SESSION) && $_SESSION['connecte'] == True) { //Si connecté, afficher boutton déconnexion
-                    ?>
-
+                    <?php if(isset($_SESSION) && $_SESSION['type'] == 'a') { ?>
                         <li class="nav-item">
-                            <form action="../controller/ConnexionController.php" method="post">
-                                <button type="submit" name="deconnexion">Déconnexion</button>
+                            <form action="../controller/AccueilController.php" method="post">
+                                <button type="submit" name="dashboard">Dashboard</button>
+                            </form>
+                        </li>
+                        <li class="nav-item">
+                            <form action="../controller/RepresentantController.php" method="post">
+                                <button type="submit" name="showAll">Représentants</button>
                             </form>
                         </li>
 
-                    <?php } else { //Sinon afficher boutton connexion
-                    ?>
-
                         <li class="nav-item">
-                            <form action="../controller/ConnexionController.php" method="post">
-                                <button type="submit" name="connexion">Connexion</button>
+                            <form action="../controller/CavalierController.php" method="post">
+                                <button type="submit" name="action" value="index">Cavaliers</button>
                             </form>
                         </li>
-
                     <?php } ?>
-
-                    <li class="nav-item">
-                        <form action="../controller/CompteController.php" method="post">
-                            <button type="submit" name="inscription">Inscription</button>
-                        </form>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-<?php } else { ?>
-
-    <nav class="navbar navbar-expand-lg bg-light">
-        <div class="container-fluid">
-            <div class="collapse navbar-collapse">
-
-                <form action="/tp_centre_equestre" method="post">
-                    <button class="navbar-brand" type="submit" name="index">Accueil</button> <!-- Renvoie vers la page d'accueil (pour le moment 'Test.php') -->
-                </form>
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <form action="./controller/AccueilController.php" method="post">
-                            <button type="submit" name="dashboard">Dashboard</button>
-                        </form>
-                    </li>
-                    <?php
-                    if (isset($_SESSION) && $_SESSION['connecte'] == True) { //Si connecté, afficher boutton déconnexion
-                    ?>
                     
+                    <?php
+                    if (isset($_SESSION) && $_SESSION['connecte'] == True) { //Si connecté, afficher boutton déconnexion
+                    ?>
+
                         <li class="nav-item">
-                            <form action="./controller/ConnexionController.php" method="post">
+                            <form action="../controller/ConnexionController.php" method="post">
                                 <button type="submit" name="deconnexion">Déconnexion</button>
                             </form>
                         </li>
@@ -137,22 +94,108 @@ $home_link_index = "http://localhost/tp_centre_equestre/index.php";
                     ?>
 
                         <li class="nav-item">
-                            <form action="controller/ConnexionController.php" method="post">
+                            <form action="../controller/ConnexionController.php" method="post">
                                 <button type="submit" name="connexion">Connexion</button>
                             </form>
                         </li>
 
                     <?php } ?>
-
-                    <li class="nav-item">
-                        <form action="controller/CompteController.php" method="post">
-                            <button type="submit" name="inscription">Inscription</button>
-                        </form>
-                    </li>
+                    
+                    <?php if(isset($_SESSION) && $_SESSION['type'] == 'a') { ?>
+                        <li class="nav-item">
+                            <form action="../controller/CompteController.php" method="post">
+                                <button type="submit" name="inscription_admin">Inscription Admin</button>
+                            </form>
+                        </li>
+                    <?php } ?>
                 </ul>
             </div>
         </div>
     </nav>
+<?php } else { //Quand sur page d'accueil?>
+
+    <?php if(isset($_SESSION) && $_SESSION['type'] == 'a') { //Quand sur page d'accueil et admin ?>
+        <nav class="navbar navbar-expand-lg bg-light">
+            <div class="container-fluid">
+                <div class="collapse navbar-collapse">
+
+                    <form action="/tp_centre_equestre" method="post">
+                        <button class="navbar-brand" type="submit" name="index">Accueil</button>
+                    </form>
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <form action="controller/AccueilController.php" method="post">
+                                <button type="submit" name="dashboard">Dashboard</button>
+                            </form>
+                        </li>
+
+                        <li class="nav-item">
+                            <form action="controller/RepresentantController.php" method="post">
+                                <button type="submit" name="showAll">Représentants</button>
+                            </form>
+                        </li>
+
+                        <li class="nav-item">
+                            <form action="controller/CavalierController.php" method="post">
+                                <button type="submit" name="action" value="index">Cavaliers</button>
+                            </form>
+                        </li>
+                        <?php
+                        if (isset($_SESSION) && $_SESSION['connecte'] == True) { //Si connecté, afficher boutton déconnexion
+                        ?>
+                        
+                            <li class="nav-item">
+                                <form action="controller/ConnexionController.php" method="post">
+                                    <button type="submit" name="deconnexion">Déconnexion</button>
+                                </form>
+                            </li>
+
+                        <?php } ?>
+
+                        <li class="nav-item">
+                            <form action="controller/CompteController.php" method="post">
+                                <button type="submit" name="inscription_admin">Inscription Admin</button>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <?php } else { //Quand sur page d'accueil et pas admin ?>
+            <nav class="navbar navbar-expand-lg bg-light">
+            <div class="container-fluid">
+                <div class="collapse navbar-collapse">
+
+                    <form action="/tp_centre_equestre" method="post">
+                        <button class="navbar-brand" type="submit" name="index">Accueil</button> <!-- Renvoie vers la page d'accueil (pour le moment 'Test.php') -->
+                    </form>
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <?php
+                        if (isset($_SESSION) && $_SESSION['connecte'] == True) { //Si connecté, afficher boutton déconnexion
+                        ?>
+                        
+                            <li class="nav-item">
+                                <form action="./controller/ConnexionController.php" method="post">
+                                    <button type="submit" name="deconnexion">Déconnexion</button>
+                                </form>
+                            </li>
+
+                        <?php } else { //Sinon afficher boutton connexion
+                        ?>
+
+                            <li class="nav-item">
+                                <form action="controller/ConnexionController.php" method="post">
+                                    <button type="submit" name="connexion">Connexion</button>
+                                </form>
+                            </li>
+
+                        <?php } ?>
+
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <?php } ?>
 <?php } ?>
 
 </html>

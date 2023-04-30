@@ -1,5 +1,9 @@
 <?php
+    if (isset($_SESSION['connecte']) && $_SESSION['connecte'] === true && $_SESSION['type'] === 'a'){
 
+    } else {
+        header('Location: http://localhost/tp_centre_equestre/');
+    }
     require_once '../inc/bdd.inc.php';
     $pagename = 'Accueil';
     require "header.php";
@@ -69,12 +73,24 @@
             </form>
         </div>
         <div class="col-6">
+            <h5>Robes</h5>
+            <form action="../controller/RobeController.php" method="post">
+                <input type="hidden" name="action" value="index">
+                <input type="submit" value="INDEX">
+            </form>
+            <form action="../controller/RobeController.php" method="post">
+                <input type="hidden" name="action" value="form">
+                <input type="hidden" name="subaction" value="new">
+                <input type="submit" value="AJOUT">
+            </form>
+        </div>
+        <div class="col-6">
             <h5>Gestion des cours</h5>
-            <!-- <form action="../controller/CoursController.php" method="post">
+            <form action="../controller/CoursController.php" method="post">
                 <input type="hidden" name="action" value="cours">
                 <input type="submit" value="GESTION">
-            </form>         -->
-            <a href="../vue/cours/cours_management.php"><input type="submit" value="GESTION"></a>
+            </form>        
+            <!-- <a href="../vue/cours/cours_management.php"><input type="submit" value="GESTION"></a> -->
 
         </div>
 

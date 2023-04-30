@@ -1,20 +1,18 @@
 <?php
+if (isset($_SESSION['connecte']) && $_SESSION['connecte'] === true && $_SESSION['type'] === 'a'){
+
+} else {
+    header('Location: http://localhost/tp_centre_equestre/');
+}
 $pagename = "Formulaire pour Pension";
-
 require $headerpath;
-
 ?>
 
 <head>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <script src="../../lib/jquery-ui.js"></script>
-    <script src="../../lib/external/jquery/jquery.js"></script>
-    <script> $(function (){
-       $("libelle").selectmenu(); 
-    });
-    </script>
+
     <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
@@ -24,30 +22,56 @@ require $headerpath;
 <!-- Dialog box -->
 <!-- Permet l'ouverture d'une boite de dialogue pour confirmer l'exécution d'une action -->
 <!-- Valider modifications -->
-<div id="dialog_modify" title="Créer la pension ?"></div>
-<script>
-    $(function() {
-        $("#dialog_modify").dialog({ 
-            minWidth: 250,
-            autoOpen: false,
-            modal: true,
-            buttons: {
-                Oui: function() {
-                    document.getElementById('modify').click(); //Modification du représentant quand dialog validé
+<div id="dialog_create" title="Créer la pension ?"></div>
+<div id="dialog_modify" title="Modifier la pension ?"></div>
+
+<?php if(isset($update) && $update == true) { ?>
+    <script>
+        $(function() {
+            $("#dialog_modify").dialog({ 
+                minWidth: 250,
+                autoOpen: false,
+                modal: true,
+                buttons: {
+                    Oui: function() {
+                        document.getElementById('modify').click(); //Modification du représentant quand dialog validé
+                    },
+                    Non: function() {
+                        $(this).dialog("close");
+                    }
                 },
-                Non: function() {
-                    $(this).dialog("close");
-                }
-            },
-            post: true
+                post: true
+            });
+
+            $("#opener_modify").click(function() {
+                $("#dialog_modify").dialog("open");
+            })
         });
+    </script>
+<?php } else {?>
+    <script>
+        $(function() {
+            $("#dialog_create").dialog({ 
+                minWidth: 250,
+                autoOpen: false,
+                modal: true,
+                buttons: {
+                    Oui: function() {
+                        document.getElementById('modify').click(); //Ajout du représentant quand dialog validé
+                    },
+                    Non: function() {
+                        $(this).dialog("close");
+                    }
+                },
+                post: true
+            });
 
-        $("#opener_modify").click(function() {
-            $("#dialog_modify").dialog("open");
-        })
-    });
-</script>
-
+            $("#opener_modify").click(function() {
+                $("#dialog_create").dialog("open");
+            })
+        });
+    </script>
+<?php } ?>
 <!-- Annuler modifications -->
 <div id="dialog_cancel" title="Annuler les modifications ?"></div>
 <script>
@@ -93,6 +117,22 @@ require $headerpath;
         <input type="hidden" name="id_pension" value="<?= isset($infosaved["id_pension"]) ? $infosaved["id_pension"] : "" ;?>">
         <div class="row justify-content-md-center">
             <div class="form-group col">
+                <label for="iTarifPension">Tarif mensuel*</label>
+                <input type="number" min="0" name="tarif" value="<?= isset($infosaved) ? $infosaved["tarif"] : "";  ?>" class="form-control" id="iTarifPension" placeholder="" required>
+            </div>
+            <div class="form-group col">
+                <label for="nom_cheval">Cheval sélectionné*</label>
+                <input type="text" name="nom_cheval" id="nom_cheval" value="<?= isset($infosaved["nom_cheval"]) && $infosaved["nom_cheval"] != "" ? $infosaved["nom_cheval"] : "";  ?>" onkeyup = "autocomplete_che()" class="form-control" required>
+                <input type="hidden" name="id_cheval" id="id_cheval" value="<?= isset($infosaved) && $infosaved["id_cheval"] != "" ? $infosaved["id_cheval"] : "";  ?>" class="form-control">
+                <ul id="list_cheval"></ul>
+            </div>
+            <div class="form-group col">
+                <label for="nom_cavalier">Cavalier bénéficiaire</label>
+                <input type="text" name="nom_cavalier" id="nom_cavalier" value="<?= isset($infosaved["nom_cavalier"]) && $infosaved["nom_cavalier"] != "" ? $infosaved["nom_cavalier"] : "";  ?>" onkeyup = "autocomplete_cav()" class="form-control">
+                <input type="hidden" name="id_cavalier" id="id_cavalier" value="<?= isset($infosaved["id_cavalier"]) && $infosaved["id_cavalier"] != "" ? $infosaved["id_cavalier"] : "";  ?>" class="form-control">
+                <ul id="list_cavalier"></ul>
+            </div>
+            <div class="form-group col-2">
                 <label for="iLibellePension">Libelle*</label>
                 <select name="libelle" class="form-select" id="iLibellePension" required>
                     <option value="" <?= (isset($infosaved["libelle"]) && $infosaved["libelle"] == "") ? "selected" : "" ?>></option>
@@ -100,16 +140,6 @@ require $headerpath;
                     <option value="Demi-pension" <?= (isset($infosaved["libelle"]) && $infosaved["libelle"] == "Demi-pension") ? "selected" : "" ?>>Demi-pension</option>
                 </select>
                 <!--<input type="text" name="libelle" value="<?= isset($infosaved) ? $infosaved["libelle"] : "";  ?>" class="form-control" id="iLibellePension" placeholder="" required>-->
-            </div>
-            <div class="form-group col">
-                <label for="iTarifPension">Tarif mensuel*</label>
-                <input type="text" name="tarif" value="<?= isset($infosaved) ? $infosaved["tarif"] : "";  ?>" class="form-control" id="iTarifPension" placeholder="" required>
-            </div>
-            <div class="form-group col">
-                <label for="IdCheval">Cheval sélectionné*</label>
-                <input type="text" name="nom_cheval" id="nom_cheval" value="<?= isset($infosaved["nom_cheval"]) && $infosaved["nom_cheval"] != "" ? $infosaved["nom_cheval"] : "";  ?>" onkeyup = "autocomplet_che()" class="form-control">
-                <input type="hidden" name="id_cheval" id="id_cheval" value="<?= isset($infosaved) && $infosaved["id_cheval"] != "" ? $infosaved["id_cheval"] : "";  ?>" class="form-control">
-                <ul id="list_cheval"></ul>
             </div>
         </div>
         <div class="row">
@@ -119,11 +149,11 @@ require $headerpath;
                 <input type="date" name="date_de_debut" value="<?= isset($infosaved) ? $infosaved["date_de_debut"] : "";  ?>" class="form-control" id="iDatePension" placeholder="" required>
             </div>
             <div class="form-group col">
-                <label for="iDuree">Durée*</label>
-                <input type="number" name="duree" value="<?= isset($infosaved) ? $infosaved["duree"] : "";  ?>" class="form-control" id="iDuree" placeholder="" required>
+                <label for="iDuree">Durée (en mois)*</label>
+                <input type="number" min="1" name="duree" value="<?= isset($infosaved) ? $infosaved["duree"] : "";  ?>" class="form-control" id="iDuree" placeholder="" required>
             </div>
         </div>
-           
+
         <?php if(isset($update) && $update == true ){ ?>
             <input type="hidden" name="subaction" value="update">
         <?php  } ?>
@@ -149,17 +179,17 @@ require $headerpath;
 
 <script> 
 $(function (){
-   $("libelle").selectmenu(); 
+    $("libelle").selectmenu(); 
 });
 
-function setInputValue(e){
+function setInputValueChe(e){
     //console.log(list);
     $("#id_cheval").val(e.getAttribute('value'));
-    $("#nom_cheval").val(e.innerHTML );
+    $("#nom_cheval").val(e.innerHTML);
     $("#list_cheval").hide();
 }
 
-function autocomplet_che(){
+function autocomplete_che(){
     var min_length = 2;
     var keyword = $("#nom_cheval").val();
 
@@ -171,6 +201,30 @@ function autocomplet_che(){
             success:function(data){
                 $('#list_cheval').show();
                 $('#list_cheval').html(data);
+            }
+        });
+    }
+}
+
+function setInputValueCav(e){
+    //console.log(list);
+    $("#id_cavalier").val(e.getAttribute('value'));
+    $("#nom_cavalier").val(e.innerHTML);
+    $("#list_cavalier").hide();
+}
+
+function autocomplete_cav(){
+    var min_length = 2;
+    var keyword = $("#nom_cavalier").val();
+
+    if (keyword.length >= min_length) {
+        $.ajax({
+            method: "POST",
+            url: "../inc/autocomplete.php",
+            data : {keyword :keyword},
+            success:function(data){
+                $('#list_cavalier').show();
+                $('#list_cavalier').html(data);
             }
         });
     }

@@ -3,7 +3,7 @@
  * Function : upload_photo
  * Need $_POST["nom"], $_POST["prenom"] and $_FILES[$file][]
  */
-function upload_photo($toUpdate = false, $file, $photoName )
+function upload_photo($file, $photoName, $toUpdate = false )
 {
     $error = "";
     /** 
@@ -34,13 +34,13 @@ function upload_photo($toUpdate = false, $file, $photoName )
     if(!$toUpdate)
     {  
         if(file_exists($target_file)) {    
-            $error = "Sorry, file already exists.";
+            $error = "Désolé, le fichier existe déjà. Veuillez en choisir un autre";
             $uploadOk = 0;
         }
     }
     // Check file size
     if ($_FILES[$file]["size"] > 500000) {
-        $error = "Sorry, your file is too large.";
+        $error = "Désolé, votre image est trop grande. Veuillez la compresser ou choisir une autre image";
         $uploadOk = 0;
     }
 

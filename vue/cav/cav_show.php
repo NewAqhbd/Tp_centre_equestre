@@ -1,4 +1,9 @@
 <?php
+if (isset($_SESSION['connecte']) && $_SESSION['connecte'] === true && $_SESSION['type'] === 'a'){
+
+} else {
+    header('Location: http://localhost/tp_centre_equestre/');
+}
 $pagename = "Cavalier : ".$data["nom_personne"]." ".$data["prenom_personne"];
 require $headerpath;
 
@@ -61,7 +66,7 @@ require $headerpath;
                             <tr>
                                 <td><?= $data["nom_personne"] ?></td>
                                 <td><?= $data["prenom_personne"] ?></td>
-                                <td><?= $data["date_de_naissance"] ?></td>
+                                <td><?= date('d/m/Y', strtotime($data["date_de_naissance"])) ?></td>
                                 <td><?= $data["mail"] ?></td>
                                 <td><?= $data["tel"] ?></td>
                             </tr>
@@ -69,31 +74,10 @@ require $headerpath;
                     </table>
                 </div>
                 <div class="col-2">
-                    <img src="http://localhost/2a/tp_centre_equestre/media/<?= isset($data) && $data["photo"] != "" ? $data["photo"] : "default.jpg"  ?>" alt="">
+                    <img src="http://localhost/tp_centre_equestre/media/<?= isset($data) && $data["photo"] != "" ? $data["photo"] : "default.jpg"  ?>" alt="">
                 </div>
             </div>
 
-            <?php if (isset($rep) ) { ?>
-            <h6>Représentant Légal</h6>
-            <div class="row">
-                <div class="col-10">
-                    <table style="width:100%;">
-                        <tbody>
-                            <tr>
-                                <td><?= $rep["nom_personne"] ?></td>
-                                <td><?= $rep["prenom_personne"] ?></td>
-                                <td><?= $rep["date_de_naissance"] ?></td>
-                                <td><?= $rep["mail"] ?></td>
-                                <td><?= $rep["tel"] ?></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="col-2">
-                    <img src="http://localhost/2a/tp_centre_equestre/media/<?= isset($rep) && $rep["photo"] !="" ? $rep["photo"] : "default.jpg"  ?>" alt="">
-                </div>
-            </div>
-            <?php } ?>
             <div class="container-fluid">
                 <form action="" method="post" class="d-inline" >
                     <input type="hidden" name="cav_id" value="<?= $data["id_personne"]; ?>">
@@ -110,7 +94,6 @@ require $headerpath;
                 </form>
                 <input type="submit" id="opener_del" value="Supprimer ce Représentant" style="width:35%;">
             </div>
-
         </div>
         <div class="" id="fragment-2">
             <p>License</p>
@@ -125,11 +108,11 @@ require $headerpath;
                     <?php foreach ($ins as $inscription) { ?>
                         <tr>
                             <td><?= $inscription["id_inscription"] ?></td>
-                            <td><?= $inscription["montant_cotisation"] ?></td>
-                            <td><?= $inscription["montant_ffe"] ?></td>
-                            <td><?= $inscription["annee"] ?></td>
+                            <td><?= $inscription["montant_cotisation"] ?>€</td>
+                            <td><?= $inscription["montant_ffe"] ?>€</td>
+                            <td><?= date('d/m/Y', strtotime($inscription["annee"])) ?></td>
                         </tr>
-                  <?php  } ?>
+                    <?php  } ?>
                 </tbody>
             </table>
             

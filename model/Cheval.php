@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Selectionne tous les chevals de la table
- * On distingue un cheval d'un représentant par la valeur de sa license 
- */
 function get_all_che()
 {
     global $con;
@@ -11,8 +7,8 @@ function get_all_che()
     $req = $con->prepare($sql);
     $req->bindValue(':valid',1,PDO::PARAM_INT);
     try {
-         $req->execute();
-         return $req->fetchAll();
+        $req->execute();
+        return $req->fetchAll();
     } catch (PDOException $e) {
         return $e->getMessage();
     }
@@ -27,9 +23,9 @@ function get_one_che(int $id){
     try {
         $req->execute();
         return $req->fetch();
-   } catch (PDOException $e) {
-       return $e->getMessage();
-   }
+    } catch (PDOException $e) {
+        return $e->getMessage();
+    }
 }
 
 
@@ -39,7 +35,6 @@ function add_che(Cheval $cheval)
     $sql = "INSERT INTO ".DB_TABLE_CHEVAL." (SIRE,nom_cheval,id_robe,id_cav, photo_cheval) 
                                     VALUES ( :sire, :nom_cheval, :id_robe , :id_cav, :photo_cheval);";
     $req = $con->prepare($sql);
-    //FAIRE PARAM
     $req->bindValue(":sire",$cheval->getSIRE(),PDO::PARAM_STR);
     $req->bindValue(":nom_cheval",$cheval->getNom(),PDO::PARAM_STR);
     $req->bindValue(":id_robe",$cheval->getRobe(),PDO::PARAM_INT);
@@ -66,9 +61,9 @@ function soft_delete_che_by_id(int $id){
         
         $req->execute();
         return true;
-   } catch (PDOException $e) {
-       return $e->getMessage();
-   }
+    } catch (PDOException $e) {
+        return $e->getMessage();
+    }
 }
 
 
@@ -82,7 +77,6 @@ function update_che(Cheval $cheval, int $id)
                                             photo_cheval = :photo_cheval 
                                         WHERE id_cheval = :id ;";
     $req = $con->prepare($sql);
-    // FAIRE PARAM
     $req->bindValue(":sire",$cheval->getSIRE(),PDO::PARAM_STR);
     $req->bindValue(":nom_cheval",$cheval->getNom(),PDO::PARAM_STR);
     $req->bindValue(":id_robe",$cheval->getRobe(),PDO::PARAM_INT);

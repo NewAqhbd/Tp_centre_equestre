@@ -16,8 +16,23 @@ if(isset($_POST["action"]) && $_POST["action"] == "index"){
     
     $data = get_all_che();
     $rob = get_all_rob();
+    $cav = get_all_cav();
 
     return require_once "../vue/che/che_index.php";
+}
+
+if(isset($_POST["front_che"])){
+
+    $data = get_all_che();
+    return require_once "../vue/front_che.php";
+}
+
+if(isset($_POST["action"]) && $_POST["action"] == "che_details"){
+    $data = get_one_che($_POST["che_id"]);
+    $rob = get_one_rob($data['id_robe']);
+    $cav = get_one_cav($data['id_cav']);
+
+    return require_once '../vue/front/che_details.php';
 }
 
 /**
@@ -33,14 +48,10 @@ if(isset($_POST["action"]) && $_POST["action"] == "show")
         $cav = get_one_cav($data["id_cav"]);
     }
 
-    //$pen = get_pension_che();
-
     return require_once "../vue/che/che_show.php";
 }
 
-/**
- * Retourne la vue qui affiche l'ensemble des Cavaliers après suppression ( SoftDelte ) d'un Cavalier
- */
+
 if(isset($_POST["action"]) && $_POST["action"] == "delete"){
 
     soft_delete_che_by_id($_POST["che_id"]);
@@ -111,7 +122,7 @@ if(isset($_POST["action"]) && $_POST["action"] == "form"){
     
     isset($_POST["subaction"]) && $_POST["subaction"] == "update" ? $toUpdate = true : $toUpdate = false ;
     if($_FILES['photo_cheval']['size'] > 0){
-        if(!upload_photo($toUpdate, 'photo_cheval', $_POST['nom_cheval']))
+        if(!upload_photo('photo_cheval', $_POST['nom_cheval'], $toUpdate))
         { 
             $error = "Il y a eu une erreur sur le traitement de la photo";
             return require_once "../vue/che/che_form.php";

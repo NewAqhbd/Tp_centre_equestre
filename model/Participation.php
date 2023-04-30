@@ -28,8 +28,8 @@ function get_all_weekly_part_by_id(int $id,int $actif,int $week_increment = 0)
     $req->bindValue(':week_increment',$week_increment,PDO::PARAM_INT);
     $req->bindValue(':id_cav',$id,PDO::PARAM_INT);
     try {
-         $req->execute();
-         return $req->fetchAll();
+        $req->execute();
+        return $req->fetchAll();
     } catch (PDOException $e) {
         return $e->getMessage();
     }
@@ -59,7 +59,7 @@ function add_part(int $id_cav,int $id_cours){
 
     $req->execute();
     $result = $req->fetch();
-    $weekid = 0;
+    $weekid = 1;
     for ($i=0; $i < $result[0]; $i++) { 
             $sql = "INSERT INTO ".DB_TABLE_PARTICIPATION." (id_cour,id_week_cour,id_cav) 
                                                     VALUES (:id_cour,:id_week_cour,:id_cav) ;";
@@ -88,9 +88,9 @@ function upd_del_one_by_id(int $id_cours,int $id_week,int $id_cav,int $actif){
     
     try {
         $req->execute();
-   } catch (PDOException $e) {
-       return $e->getMessage();
-   }
+    } catch (PDOException $e) {
+        return $e->getMessage();
+    }
 
 }
 
@@ -104,9 +104,9 @@ function del_many_by_id(int $id_cours,int $id_cav){
     
     try {
         $req->execute();
-   } catch (PDOException $e) {
-       return $e->getMessage();
-   }
+    } catch (PDOException $e) {
+        return $e->getMessage();
+    }
 
 }
 
@@ -121,7 +121,7 @@ function get_participation_by_cou_id(int $id_cours,int $id_cav){
         $req->execute();
         return $req->fetchAll(PDO::FETCH_ASSOC);
     } catch (PDOException $e) {
-       return $e->getMessage();
+        return $e->getMessage();
     }
 
 }
@@ -140,8 +140,8 @@ function get_all_part_by_id(int $id,int $actif)
     $req->bindValue(':actif',$actif,PDO::PARAM_INT);
     $req->bindValue(':id_cav',$id,PDO::PARAM_INT);
     try {
-         $req->execute();
-         return $req->fetchAll();
+        $req->execute();
+        return $req->fetchAll();
     } catch (PDOException $e) {
         return $e->getMessage();
     }
