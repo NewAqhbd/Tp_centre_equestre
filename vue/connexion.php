@@ -18,7 +18,7 @@ require_once '../vue/header.php';
                 <h4>Connexion</h4>
                 <div class="input-group input-group-icon">
                     <input type="text" name="username" placeholder="Saisir le nom d'utilisateur (adresse email)" required/>
-                    <div class="input-icon"><i class="fa fa-key"></i></div>
+                    <div class="input-icon"><i class="fa fa-user"></i></div>
                 </div>
                 <div class="input-group input-group-icon">
                     <input type="password" name="mdp" placeholder="Saisir le mot de passe" required/>
