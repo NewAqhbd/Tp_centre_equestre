@@ -61,7 +61,7 @@ $home_link_index = "http://localhost/tp_centre_equestre/index.php";
                     <button class="navbar-brand" type="submit" name="index">Accueil</button>
                 </form>
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <?php if(isset($_SESSION) && $_SESSION['type'] == 'a') { //Si connecté en tant qu'admin?>
+                    <?php if(isset($_SESSION) && $_SESSION['type'] == 'a') { //Quand sur page autre que l'accueil et admin?>
                         <li class="nav-item">
                             <form action="../controller/AccueilController.php" method="post">
                                 <button type="submit" name="dashboard">Dashboard</button>
@@ -78,34 +78,67 @@ $home_link_index = "http://localhost/tp_centre_equestre/index.php";
                                 <button type="submit" name="action" value="index">Cavaliers</button>
                             </form>
                         </li>
+
+
+                        <?php
+                            if (isset($_SESSION) && $_SESSION['connecte'] == True) { //Si connecté, afficher boutton déconnexion
+                        ?>
+
+                            <li class="nav-item">
+                                <form action="../controller/ConnexionController.php" method="post">
+                                    <button type="submit" name="deconnexion">Déconnexion</button>
+                                </form>
+                            </li>
+
+                        <?php } else { //Sinon afficher boutton connexion
+                            ?>
+
+                            <li class="nav-item">
+                                <form action="../controller/ConnexionController.php" method="post">
+                                    <button type="submit" name="connexion">Connexion</button>
+                                </form>
+                            </li>
+
+                        <?php } ?>
+                    <?php } else { //Quand sur page autre que l'accueil et pas admin ?>
+                        <nav class="navbar navbar-expand-lg bg-light">
+                            <div class="container-fluid">
+                                <div class="collapse navbar-collapse">
+                                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                                        <?php
+                                            if (isset($_SESSION) && $_SESSION['connecte'] == True) { //Si connecté, afficher boutton déconnexion
+                                        ?>
+                                        
+                                            <li class="nav-item">
+                                                <form action="../controller/ConnexionController.php" method="post">
+                                                    <button type="submit" name="deconnexion">Déconnexion</button>
+                                                </form>
+                                            </li>
+
+                                            <li class="nav-item">
+                                                <form action="../controller/CompteController.php" method="post">
+                                                    <button type="submit" name="change_password">Changer mot de passe</button>
+                                                </form>
+                                            </li>
+
+                                        <?php } else { //Sinon afficher boutton connexion
+                                        ?>
+
+                                            <li class="nav-item">
+                                                <form action="../controller/ConnexionController.php" method="post">
+                                                    <button type="submit" name="connexion">Connexion</button>
+                                                </form>
+                                            </li>
+
+                                        <?php } ?>
+
+                                    </ul>
+                                </div>
+                            </div>
+                        </nav>
                     <?php } ?>
                     
-                    <?php
-                    if (isset($_SESSION) && $_SESSION['connecte'] == True) { //Si connecté, afficher boutton déconnexion
-                    ?>
-
-                        <li class="nav-item">
-                            <form action="../controller/ConnexionController.php" method="post">
-                                <button type="submit" name="deconnexion">Déconnexion</button>
-                            </form>
-                        </li>
-
-                        <li class="nav-item">
-                            <form action="../controller/CompteController.php" method="post">
-                                <button type="submit" name="change_password">Changer mot de passe</button>
-                            </form>
-                        </li>
-
-                    <?php } else { //Sinon afficher boutton connexion
-                    ?>
-
-                        <li class="nav-item">
-                            <form action="../controller/ConnexionController.php" method="post">
-                                <button type="submit" name="connexion">Connexion</button>
-                            </form>
-                        </li>
-
-                    <?php } ?>
+                    
                     
                     <?php if(isset($_SESSION) && $_SESSION['type'] == 'a') { ?>
                         <li class="nav-item">
