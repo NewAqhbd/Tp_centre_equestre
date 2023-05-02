@@ -24,7 +24,7 @@ if(isset($_POST['deconnexion'])){
 
 }
 
-if(isset($_POST['connexion_admin_validation'])){
+if(isset($_POST['connexion_validation'])){
 
     if(isset($_POST['username'])){
         $username = $_POST['username'];
@@ -71,36 +71,5 @@ if(isset($_POST['connexion_admin_validation'])){
         }
     }
 }
-
-    if(isset($_POST['connexion_utilisateur_validation'])){
-
-        if(isset($_POST['username'])){
-            $username = $_POST['username'];
-            $mdp = $_POST['mdp'];
-        
-            $sql = "SELECT * FROM utilisateur WHERE nom_utilisateur = :username AND mdp = md5(:mdp) AND type = 'u'";
-            $req = $con->prepare($sql);
-            $req->bindValue(':username', $username, PDO::PARAM_STR);
-            $req->bindValue(':mdp', $mdp, PDO::PARAM_STR);
-            $req->execute();
-        
-            $count = $req->rowCount();
-        
-            if($count == 1){ //S'il existe une correspondance entre login et mdp, établir la connexion
-                require $headerpath;
-                $_SESSION['username'] = $username;
-                $_SESSION['mdp'] = $mdp;
-                $_SESSION['connecte'] = True;
-                header("Location: ../../tp_centre_equestre/vue/dashboard.php");
-                exit();
-            }
-    
-            else{
-                ?>
-                <script>alert("Mot de passe ou mail invalide")</script>
-                <?php //require '../vue/connexion.php';
-            }
-        }
-    }
 
 ?>
