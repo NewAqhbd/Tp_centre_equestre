@@ -61,7 +61,7 @@ $home_link_index = "http://localhost/tp_centre_equestre/index.php";
                     <button class="navbar-brand" type="submit" name="index">Accueil</button>
                 </form>
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <?php if(isset($_SESSION) && $_SESSION['type'] == 'a') { ?>
+                    <?php if(isset($_SESSION) && $_SESSION['type'] == 'a') { //Si connecté en tant qu'admin?>
                         <li class="nav-item">
                             <form action="../controller/AccueilController.php" method="post">
                                 <button type="submit" name="dashboard">Dashboard</button>
@@ -87,6 +87,12 @@ $home_link_index = "http://localhost/tp_centre_equestre/index.php";
                         <li class="nav-item">
                             <form action="../controller/ConnexionController.php" method="post">
                                 <button type="submit" name="deconnexion">Déconnexion</button>
+                            </form>
+                        </li>
+
+                        <li class="nav-item">
+                            <form action="../controller/CompteController.php" method="post">
+                                <button type="submit" name="change_password">Changer mot de passe</button>
                             </form>
                         </li>
 
@@ -177,6 +183,12 @@ $home_link_index = "http://localhost/tp_centre_equestre/index.php";
                             <li class="nav-item">
                                 <form action="./controller/ConnexionController.php" method="post">
                                     <button type="submit" name="deconnexion">Déconnexion</button>
+                                </form>
+                            </li>
+
+                            <li class="nav-item">
+                                <form action="./controller/CompteController.php" method="post">
+                                    <button type="submit" name="change_password">Changer mot de passe</button>
                                 </form>
                             </li>
 
