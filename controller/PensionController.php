@@ -102,6 +102,7 @@ if(isset($_POST["action"]) && $_POST["action"] == "form"){
         if(isset($cavIds) && $cavIds != ""){
             $cav = get_one_cav($cavIds);
             $infosaved["nom_cavalier"] = $cav["nom_personne"];
+            $oldCav = $cavIds;
         }
         
         $update = true;
@@ -119,14 +120,11 @@ if(isset($_POST["action"]) && $_POST["action"] == "form"){
         
         // Quand cavalier déjà affecté à la pension
         if (isset($_POST['nom_cavalier']) && $_POST['nom_cavalier'] != '') {
-            if(!update_pension($pension,$_POST["id_pension"]) || !update_est_pensionnaire($_POST["id_cavalier"])){
+            if(!update_pension($pension,$_POST["id_pension"]) || !update_est_pensionnaire($infosaved["id_pension"] , $_POST["id_cavalier"], $_POST["id_old_cav"])){
                 $error = "updpen";
                 echo $error;
                 return require_once "../vue/pen/pen_form.php";
             }else {
-                update_est_pensionnaire($_POST["id_cavalier"]);
-                update_pension($pension,$_POST["id_pension"]);
-
                 $data = get_all_pension();
                 return require_once "../vue/pen/pen_index.php";
             }

@@ -102,16 +102,28 @@ function update_pension(Pension $pension, int $id){
     }
 }
 
-function update_est_pensionnaire($idCav) {
+function update_est_pensionnaire($idPen, $idCav, $idOldCav) {
+    // var_dump("Id cav : " . $idCav);
+    // var_dump("Id Pension : " . $idPen);
+    // var_dump("Id Old Cav : " . $idOldCav);
+    // die();
+
+
     global $con;
-    $sql = "UPDATE est_pensionnaire SET id_personne = :idCav";
+    $sql = "UPDATE est_pensionnaire SET id_personne = :idCav WHERE id_pension = :idPen AND id_personne = :idOldCav";
     $req = $con->prepare($sql);
     $req->bindValue(':idCav', $idCav, PDO::PARAM_INT);
+    $req->bindValue(':idPen', $idPen, PDO::PARAM_INT);
+    $req->bindValue(':idOldCav', $idOldCav, PDO::PARAM_INT);
+
+    $req->execute();
+
 
     try{
         $req->execute();
         return true;
     } catch (PDOException $e) {
+        var_dump("error");
         return $e->getMessage();
     }
 }

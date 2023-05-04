@@ -130,6 +130,7 @@ require $headerpath;
                 <label for="nom_cavalier">Cavalier bénéficiaire</label>
                 <input type="text" name="nom_cavalier" id="nom_cavalier" value="<?= isset($infosaved["nom_cavalier"]) && $infosaved["nom_cavalier"] != "" ? $infosaved["nom_cavalier"] : "";  ?>" onkeyup = "autocomplete_cav()" class="form-control">
                 <input type="hidden" name="id_cavalier" id="id_cavalier" value="<?= isset($infosaved["id_cavalier"]) && $infosaved["id_cavalier"] != "" ? $infosaved["id_cavalier"] : "";  ?>" class="form-control">
+                <input type="hidden" name="id_old_cav" id="id_old_cav" value="<?= isset($oldCav) && $oldCav != "" ? $oldCav : "";  ?>" class="form-control">
                 <ul id="list_cavalier"></ul>
             </div>
             <div class="form-group col-2">
