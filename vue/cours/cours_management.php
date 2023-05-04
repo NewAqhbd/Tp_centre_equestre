@@ -156,8 +156,6 @@ require $headerpath;
         allFields.removeClass( "ui-state-error" );
   
         if ( valid ) {
-          alert(title.val())
-          alert(date_end.val())
               $.ajax({
                   url: 'http://localhost/tp_centre_equestre/controller/CoursController.php', 
                   data: 'title='+ title.val()+'&start_event='+ start_event.val() +'&end_event='+ end_event.val()+'&action=add'+'&date_end='+date_end.val(),  
@@ -166,15 +164,7 @@ require $headerpath;
                           console.log(json) 
                           alert('Added Successfully'); 
                           dialog.dialog( "close" ); 
-                          calendar.fullCalendar('renderEvent',  
-                              {
-                                  title: title,  
-                                  start: start_event,  
-                                  end: end_event,  
-                                  allDay: allDay  
-                              },  
-                              true  
-                              );
+                          calendar.fullCalendar('refetchEvents');
                   }  
               });  
         }
@@ -192,6 +182,7 @@ require $headerpath;
                         alert("Updated Successfully");
                         dialogUpdate.dialog( "close" ); 
                         console.log(json)
+                        calendar.fullCalendar('refetchEvents');
                     }  
                 });  
       }
