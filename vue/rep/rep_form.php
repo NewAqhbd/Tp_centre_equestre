@@ -113,11 +113,17 @@
                     </div>
                     <div class="form-group col">
                         <label for="cp">Code postal</label>
-                        <input type="text" id="rep_cp" name="rep_cp" value="<?= isset($infosaved) ? $infosaved["rep_cp"] : "";  ?>" class="form-control">
+                        <input type="text" id="rep_cp" name="rep_cp" value="<?= isset($infosaved) ? $infosaved["rep_cp"] : "";  ?>" class="form-control" onkeyup="autocomplete_code_postal()">
+                        <div id="list_cp_container" style="height: 150px; overflow:hidden;">
+                            <ul id="list_cp"></ul>
+                        </div>
                     </div>
                     <div class="form-group col">
                         <label for="ville">Ville</label>
-                        <input type="text" id="rep_ville" name="rep_ville" value="<?= isset($infosaved) ? $infosaved["rep_ville"] : "";  ?>" class="form-control">
+                        <input type="text" id="rep_ville" name="rep_ville" value="<?= isset($infosaved) ? $infosaved["rep_ville"] : "";  ?>" class="form-control" onkeyup="autocomplete_ville()">
+                        <div id="list_ville_container" style="height: 150px; overflow:hidden;">
+                            <ul id="list_ville"></ul>
+                        </div>
                     </div>
                 </div>
                 <input type="submit" id="modify" name="modify_validation" style="display: none;" /> <!-- Exécute la requête de modification si msg de confirmation validé-->
@@ -131,6 +137,71 @@
         </div>
     </body>
 </html>
+
+
+<script>
+    let timeout;
+    function autocomplete_ville() {
+        var keyword = $('#rep_ville').val();
+        const ul = document.getElementById('list_ville');
+        clearTimeout(timeout);
+
+        if(keyword.length >= 2) {
+            timeout = setTimeout(() => {
+                fetch(`https://geo.api.gouv.fr/communes?nom=${keyword}&fields=departement&boost=population&limit=3`)
+                .then(response => response.json())
+                .then(data => {
+                    ul.innerHTML = '';
+                    data.forEach(item => {
+                        const li = document.createElement('li');
+                        li.textContent = item.nom;
+                        li.setAttribute('onClick', 'setInputValueVille(this)');
+                        li.setAttribute('value', item.nom);
+                        ul.appendChild(li);
+                    });
+                })
+                .catch(error => console.log(error));
+            }, 250)   
+            $("#list_ville").show();
+        }
+    }
+
+    function setInputValueVille(keyword) {
+        $("#rep_ville").val(keyword.innerHTML);
+        $("#list_ville").hide();
+    }
+
+
+    function autocomplete_code_postal() {
+        var keyword = $('#rep_cp').val();
+        const ul = document.getElementById('list_cp');
+        clearTimeout(timeout);
+
+        if(keyword.length >= 2) {
+            timeout = setTimeout(() => {
+                fetch(`https://geo.api.gouv.fr/communes?codePostal=${keyword}&limit=1`)
+                .then(response => response.json())
+                .then(data => {
+                    ul.innerHTML = '';
+                    data.forEach(item => {
+                        const li = document.createElement('li');
+                        li.textContent = item.codesPostaux;
+                        li.setAttribute('onClick', 'setInputValueCP(this)');
+                        li.setAttribute('value', item.nom);
+                        ul.appendChild(li);
+                    });
+                })
+                .catch(error => console.log(error));
+            }, 250)   
+            $("#list_cp").show();
+        }
+    }
+
+    function setInputValueCP(keyword) {
+        $("#rep_cp").val(keyword.innerHTML);
+        $("#list_cp").hide();
+    }
+</script>
 
 
 

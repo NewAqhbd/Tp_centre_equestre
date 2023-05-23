@@ -146,7 +146,7 @@ if(isset($_POST["action"]) && $_POST["action"] == "form"){
         $photo = $infosaved['photoName'];
     }
     if($_FILES['photo']['size'] > 0){
-        if(!upload_photo(false,'photo',$_POST['nom'])){ 
+        if(!upload_photo('photo', $_POST['nom'], false)){ 
             $error = "error photo";
             return require_once "../vue/cav/cavrep_form.php";
         }

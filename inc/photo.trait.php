@@ -49,7 +49,7 @@ function upload_photo($file, $photoName, $toUpdate = false )
     } else {
         // if everything is ok, try to upload file
         if (move_uploaded_file($_FILES[$file]["tmp_name"], $target_file)) {
-           return true;
+            return true;
         } else {
             return false;
         }

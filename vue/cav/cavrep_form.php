@@ -191,7 +191,7 @@ else{ ?>
                         <input type="email" name="mailrep" value="<?= isset($infosaved["mailrep"]) ? $infosaved["mailrep"] : "";  ?>"  class="form-control" id="iMailCavalier" placeholder="">
                     </div>
                     <div class="form-group col-6">
-                        <label for="iTelCavalier">Telephone du représenttant <br><i>format : 0601020304</i></label>
+                        <label for="iTelCavalier">Telephone du représentant <br><i>format : 0601020304</i></label>
                         <input type="tel" pattern="[0-9]{10}"  name="telrep" value="<?= isset($infosaved["telrep"]) ? $infosaved["telrep"] : "";  ?>" class="form-control" id="iTelCavalier" placeholder="">
                     </div>
             </div>
@@ -209,11 +209,17 @@ else{ ?>
             </div>
             <div class="form-group col">
                 <label for="iPhotoCavalier">Code Postal*</label>
-                <input type="text" name="codep" value="<?= isset($infosaved) ? $infosaved["codep"] : "";  ?>" class="form-control" id="iPhotoCavalier" placeholder="" required>
+                <input type="text" id="codep" name="codep" value="<?= isset($infosaved) ? $infosaved["codep"] : "";  ?>" class="form-control" id="iPhotoCavalier" placeholder="" onkeyup="autocomplete_code_postal()" required>
+                <div id="list_cp_container" style="height: 150px; overflow:hidden;">
+                    <ul id="list_cp"></ul>
+                </div>
             </div>
             <div class="form-group col">
                 <label for="iPhotoCavalier">Ville*</label>
-                <input type="text" name="ville" value="<?= isset($infosaved) ? $infosaved["ville"] : "";  ?>" class="form-control" id="iPhotoCavalier" placeholder="" required>
+                <input type="text" id="ville" name="ville" value="<?= isset($infosaved) ? $infosaved["ville"] : "";  ?>" class="form-control" id="iPhotoCavalier" placeholder="" onkeyup="autocomplete_ville()" required>
+                <div id="list_ville_container" style="height: 150px; overflow:hidden;">
+                    <ul id="list_ville"></ul>
+                </div>
             </div>
             <div class="form-group col">
                 <label for="iPhotoCavalier">Pays*</label>
@@ -319,5 +325,69 @@ else{ ?>
             birthdateInput.setCustomValidity("");
         }
     });
+</script>
+
+<script>
+    let timeout;
+    function autocomplete_ville() {
+        var keyword = $('#ville').val();
+        const ul = document.getElementById('list_ville');
+        clearTimeout(timeout);
+
+        if(keyword.length >= 2) {
+            timeout = setTimeout(() => {
+                fetch(`https://geo.api.gouv.fr/communes?nom=${keyword}&fields=departement&boost=population&limit=3`)
+                .then(response => response.json())
+                .then(data => {
+                    ul.innerHTML = '';
+                    data.forEach(item => {
+                        const li = document.createElement('li');
+                        li.textContent = item.nom;
+                        li.setAttribute('onClick', 'setInputValueVille(this)');
+                        li.setAttribute('value', item.nom);
+                        ul.appendChild(li);
+                    });
+                })
+                .catch(error => console.log(error));
+            }, 250)   
+            $("#list_ville").show();
+        }
+    }
+
+    function setInputValueVille(keyword) {
+        $("#ville").val(keyword.innerHTML);
+        $("#list_ville").hide();
+    }
+
+
+    function autocomplete_code_postal() {
+        var keyword = $('#codep').val();
+        const ul = document.getElementById('list_cp');
+        clearTimeout(timeout);
+
+        if(keyword.length >= 2) {
+            timeout = setTimeout(() => {
+                fetch(`https://geo.api.gouv.fr/communes?codePostal=${keyword}&limit=1`)
+                .then(response => response.json())
+                .then(data => {
+                    ul.innerHTML = '';
+                    data.forEach(item => {
+                        const li = document.createElement('li');
+                        li.textContent = item.codesPostaux;
+                        li.setAttribute('onClick', 'setInputValueCP(this)');
+                        li.setAttribute('value', item.nom);
+                        ul.appendChild(li);
+                    });
+                })
+                .catch(error => console.log(error));
+            }, 250)   
+            $("#list_cp").show();
+        }
+    }
+
+    function setInputValueCP(keyword) {
+        $("#codep").val(keyword.innerHTML);
+        $("#list_cp").hide();
+    }
 </script>
 </body>
