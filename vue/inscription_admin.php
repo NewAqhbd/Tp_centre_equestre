@@ -12,22 +12,32 @@ require $headerpath;
 ?>
 
 <html>
+
+<head>
+    <link rel="stylesheet" href="../lib/form_template.css">
+</head>
+
 <body>
 
-    <div class="containter">
-        <h3>Inscription Administrateur</h3>
+    <div class="container">
         <form method="post" action="../controller/CompteController.php">
-            <div>
-                <input type="text" name="username" placeholder="nom d'utilisateur" required/>
-            </div>
-            <div>
-                <input type="password" name="mdp" placeholder="mot de passe" required/>
-            </div>
-            <div>
-                <input type="password" name="mdp_confirm" placeholder="confirmer mot de passe" required/>
-            </div>
-            <div>
-                <input type="submit" name="create_account_admin" value="S'inscrire"/>
+            <div class="row">
+                <h4>Inscription Administrateur</h4>
+                <div class="input-group input-group-icon">
+                    <input type="text" name="username" placeholder="nom d'utilisateur" required/>
+                    <div class="input-icon"><i class="fa fa-user"></i></div>
+                </div>
+                <div class="input-group input-group-icon">
+                    <input type="password" name="mdp" placeholder="mot de passe" required/>
+                    <div class="input-icon"><i class="fa fa-key"></i></div>
+                </div>
+                <div class="input-group input-group-icon">
+                    <input type="password" name="mdp_confirm" placeholder="confirmer mot de passe" required/>
+                    <div class="input-icon"><i class="fa fa-key"></i></div>
+                </div>
+                <div>
+                    <input type="submit" name="create_account_admin" value="S'inscrire"/>
+                </div>
             </div>
         </form>
     </div>

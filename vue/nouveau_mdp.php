@@ -1,5 +1,9 @@
 <?php
-
+if (isset($_SESSION['connecte']) && $_SESSION['connecte'] === true){
+    
+} else {
+    header('Location: http://localhost/tp_centre_equestre/');
+}
 $pagename = 'Renouveller mot de passe';
 require_once '../vue/header.php';
 
