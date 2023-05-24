@@ -13,6 +13,13 @@ require $headerpath;
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.12.1/datatables.min.js"></script>
+
+    <style>
+        img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+    </style>
 </head>
 
 <!-- Dialog box -->
@@ -130,7 +137,9 @@ else{ ?>
                 <label for="iPhotoCavalier">Photo</label>
                 <input type="file" name="photo" class="form-control" id="iPhotoCavalier" style="display:none;">
                 <input type="hidden" name="photoName" value="<?= isset($infosaved) ? $infosaved["photoName"] :  "choose-image.png" ?>">
-                <img  id="imgCavalier" src="<?= isset($infosaved) ? "http://localhost/tp_centre_equestre/media/".$infosaved['photoName'] : "http://localhost/tp_centre_equestre/media/choose-image.png" ?>" alt="" onclick="openFileDialog()">
+                <div style="width:350px; height:350px">
+                    <img  id="imgCavalier" src="<?= isset($infosaved) ? "http://localhost/tp_centre_equestre/media/".$infosaved['photoName'] : "http://localhost/tp_centre_equestre/media/choose-image.png" ?>" alt="" onclick="openFileDialog()">
+                </div>
             </div>
             <div class="form-group col">
                 <label for="iLicCavalier">N° License FFE*</label>

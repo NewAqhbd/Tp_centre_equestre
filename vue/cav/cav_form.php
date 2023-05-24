@@ -13,6 +13,12 @@
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.12.1/datatables.min.js"></script>
+    <style>
+        img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+    </style>
 </head>
 
 <!-- Dialog box -->
@@ -77,7 +83,7 @@
                 </div>
 
                 <div class="row">
-                    <div class="form-group col-4">
+                    <div class="form-group col-4" style="width:350px; height:350px">
                         <label for="iPhotoCavalier">Photo</label>
                         <img  id="imgCavalier" src="<?= isset($infosaved) ? "http://localhost/tp_centre_equestre/media/".$infosaved['photoName'] : "http://localhost/tp_centre_equestre/media/choose-image.png" ?>" alt="" onclick="openFileDialog()">
                         <input type="file" name="photo" class="form-control" id="iPhotoCavalier" style="display:none;">
