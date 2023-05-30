@@ -140,6 +140,20 @@ if(isset($_POST) && $_POST["action"] == "updateAll"){
 
 if(isset($_POST) && $_POST["action"] == "delete"){
     global $con;
+    $sql = "UPDATE ".DB_TABLE_COURS." SET actif = :actif WHERE id_cours = :id AND id_week_cours = :idWeekCours;";
+    $req = $con->prepare($sql);
+    $req->bindValue(":id", $_POST["id"], PDO::PARAM_INT);
+    $req->bindValue(":idWeekCours", $_POST["idWeekCours"], PDO::PARAM_INT);
+    $req->bindValue(":actif", 0, PDO::PARAM_BOOL);
+        
+    echo json_encode($req->execute());
+    
+    exit;
+
+}
+
+if(isset($_POST) && $_POST["action"] == "deleteAll"){
+    global $con;
     $sql = "UPDATE ".DB_TABLE_COURS." SET actif = :actif WHERE id_cours = :id ;";
     $req = $con->prepare($sql);
     $req->bindValue(":id", $_POST["id"], PDO::PARAM_INT);
