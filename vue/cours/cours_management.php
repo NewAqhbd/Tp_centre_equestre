@@ -21,6 +21,7 @@ require $headerpath;
 </head>
 <script>  
   var eventId;
+  var eventIdWeek;
 
   // Full Calendar
   $(document).ready(function() {  
@@ -59,8 +60,8 @@ require $headerpath;
       select: function(start, end, allDay) {  
           var start = $.fullCalendar.formatDate(start, "Y-MM-DD HH:mm:ss");  
           var end = $.fullCalendar.formatDate(end, "Y-MM-DD HH:mm:ss");  
-          $( "#start_event " ).val(start)
-          $( "#end_event " ).val(end)
+          $( "#start_event_add " ).val(start)
+          $( "#end_event_add " ).val(end)
           $( "#dialog-form" ).dialog( "open" );
       },
     
@@ -78,7 +79,7 @@ require $headerpath;
                       '&delta_days='+delta["_data"]["days"]+
                       '&delta_hours='+delta["_data"]["hours"]+
                       '&delta_minutes='+delta["_data"]["minutes"]+
-                      '&action=update'  ,  
+                      '&action=updateAll'  ,  
                 type: "POST",
                 success: function(json) {
                     alert("Updated Successfully"); 
@@ -89,6 +90,7 @@ require $headerpath;
 
       eventClick: function(event) {
         eventId = event.id;
+        eventIdWeek = event.idWeek;
         $("#update-form").dialog("open");
       },
 
@@ -136,9 +138,11 @@ require $headerpath;
               title = $( "#title" ),
               titleUpdate = $( "#titleUpdate "),
               date_end = $( "#date_end" ),
-              start_event = $("#start_event"),
-              end_event = $("#end_event"),
-              allFields = $( [] ).add( title ).add( date_end ).add( start_event ).add( end_event ),
+              start_event_add = $("#start_event_add"),
+              end_event_add = $("#end_event_add"),
+              start_event_update = $("#start_event_update"),
+              end_event_update = $("#end_event_update"),
+              allFields = $( [] ).add( title ).add( date_end ).add( start_event_add ).add( end_event_add ),
               tips = $( ".validateTips" );
   
       function updateTips( t ) {
@@ -158,7 +162,7 @@ require $headerpath;
         if ( valid ) {
               $.ajax({
                   url: 'http://localhost/tp_centre_equestre/controller/CoursController.php', 
-                  data: 'title='+ title.val()+'&start_event='+ start_event.val() +'&end_event='+ end_event.val()+'&action=add'+'&date_end='+date_end.val(),  
+                  data: 'title='+ title.val()+'&start_event='+ start_event_add.val() +'&end_event='+ end_event_add.val()+'&action=add'+'&date_end='+date_end.val(),  
                   type: "POST",
                   success: function(json) { 
                           console.log(json) 
@@ -201,6 +205,25 @@ require $headerpath;
               });  
       }
 
+      function updateEvent() {
+        console.log("EventId : " + eventId);
+        console.log("EventIdWeek : " + eventIdWeek);
+        console.log("Event_start : " + start_event_update.val());
+        console.log("Event_end : " + end_event_update.val());
+
+
+        $.ajax({
+          url: 'http://localhost/tp_centre_equestre/controller/CoursController.php',
+          data: '&startEvent=' + start_event_update.val() + '&endEvent=' + end_event_update.val() + '&idCours=' + eventId + '&idWeekCours=' + eventIdWeek + '&action=update',
+          type: 'POST',
+          success: function(json) {
+            alert('Horaires modifiés avec succès !');
+            dialogUpdate.dialog( "close" );
+            calendar.fullCalendar( "refetchEvents" );
+          }
+        })
+      }
+
       //Dialog creation event
       dialog = $( "#dialog-form" ).dialog({
         autoOpen: false,
@@ -208,8 +231,8 @@ require $headerpath;
         width: 350,
         modal: true,
         buttons: {
-          "Créer un Evenement": addEvent,
-          Cancel: function() {
+          "Créer un cours": addEvent,
+          Annuler: function() {
             dialog.dialog( "close" );
           }
         },
@@ -227,13 +250,14 @@ require $headerpath;
       //Dialog modification event
       dialogUpdate = $( "#update-form" ).dialog({
         autoOpen: false,
-        height: 150,
+        height: 250,
         width: 350,
         modal: true,
         buttons: {
-          "Renommer": renameEvent,
+          "Modifier" : updateEvent,
+          "Renommer" : renameEvent,
           "Supprimer" : deleteEvent,
-          Cancel: function() {
+          Annuler: function() {
             dialogUpdate.dialog( "close" );
           }
         },
@@ -248,6 +272,30 @@ require $headerpath;
         renameEvent();
       });
   });  
+
+  // function updateStartDateTimeValue() {
+  //   console.log("Update start_event triggered !!!");
+  //   // Get the value of the datetime-local input
+  //   var dateTimeInput = document.getElementById('start_event_update');
+  //   var combinedDateTime = dateTimeInput.value;
+
+  //   // Set the value of any other hidden input field if needed
+  //   var hiddenInput = document.getElementById('start_event_update_value');
+  //   hiddenInput.value = combinedDateTime;
+  //   console.log(combinedDateTime);
+  // }
+
+  // function updateEndDateTimeValue() {
+  //   console.log("Update end_event triggered !!!");
+  //   // Get the value of the datetime-local input
+  //   var dateTimeInput = document.getElementById('end_event_update');
+  //   var combinedDateTime = dateTimeInput.value;
+
+  //   // Set the value of any other hidden input field if needed
+  //   var hiddenInput = document.getElementById('end_event_update_value');
+  //   hiddenInput.value = combinedDateTime;
+  //   console.log(combinedDateTime);
+  // }
 
 </script>  
 <style> 
@@ -269,10 +317,12 @@ body {
       <input type="text" name="title" id="title" value="" class="text ui-widget-content ui-corner-all"></br>
       <label for="date_end">Fin de l'occurence</label>
       <input type="datetime-local" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}" name="date_end" id="date_end" value="" class="text ui-widget-content ui-corner-all">
-      <label for="start_event">Début de l'event</label>
-      <input type="datetime-local" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}" name="start_event" id="start_event" value="" class="text ui-widget-content ui-corner-all">
-      <label for="end_event">Fin de l'event</label>
-      <input type="datetime-local" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}" name="end_event" id="end_event" value="" class="text ui-widget-content ui-corner-all">
+
+      <label for="start_event">Début du cours</label>
+      <input type="datetime-local" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}" name="start_event" id="start_event_add" value="" class="text ui-widget-content ui-corner-all">
+      
+      <label for="end_event">Fin du cours</label>
+      <input type="datetime-local" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}" name="end_event" id="end_event_add" value="" class="text ui-widget-content ui-corner-all">
       <!-- Allow form submission with keyboard without duplicating the dialog button -->
       <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
     </fieldset>
@@ -287,6 +337,17 @@ body {
       <label for="titleUpdate">Titre</label>
       <input type="text" name="titleUpdate" id="titleUpdate" value="" class="text ui-widget-content ui-corner-all" required></br>
       <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+
+      <label for="start_event">Début du cours</label>
+      <input type="datetime-local" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}" name="start_event" id="start_event_update" value="" class="text ui-widget-content ui-corner-all">
+      <input type="hidden" id="start_event_update_value" value="">
+
+      <label for="end_event">Fin du cours</label>
+      <input type="datetime-local" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}" name="end_event" id="end_event_update" value="" class="text ui-widget-content ui-corner-all">
+      <input type="hidden" id="end_event_update_value" value="">
+
+      <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+
     </fieldset>
   </form>
 </div>
