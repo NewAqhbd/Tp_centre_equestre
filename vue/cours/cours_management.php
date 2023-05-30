@@ -176,11 +176,26 @@ require $headerpath;
         return valid;
       }
 
+      function deleteEventAll() {
+        $.ajax({  
+                    type:"POST",
+                    url: "http://localhost/tp_centre_equestre/controller/CoursController.php",  
+                    data: "&id=" + eventId +'&action=deleteAll',  
+                    success: function(json) {  
+                        calendar.fullCalendar('removeEvents', eventId);  
+                        alert("Updated Successfully");
+                        dialogUpdate.dialog( "close" ); 
+                        console.log(json)
+                        calendar.fullCalendar('refetchEvents');
+                    }  
+                });  
+      }
+
       function deleteEvent() {
         $.ajax({  
                     type:"POST",
                     url: "http://localhost/tp_centre_equestre/controller/CoursController.php",  
-                    data: "&id=" + eventId +'&action=delete',  
+                    data: "&id=" + eventId + '&idWeekCours=' + eventIdWeek + '&action=delete',  
                     success: function(json) {  
                         calendar.fullCalendar('removeEvents', eventId);  
                         alert("Updated Successfully");
@@ -257,6 +272,7 @@ require $headerpath;
           "Modifier" : updateEvent,
           "Renommer" : renameEvent,
           "Supprimer" : deleteEvent,
+          "Supprimer TOUS" : deleteEventAll,
           Annuler: function() {
             dialogUpdate.dialog( "close" );
           }
