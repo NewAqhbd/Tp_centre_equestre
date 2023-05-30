@@ -89,20 +89,10 @@
       <!-- What We Offer-->
       <section class="section section-md bg-default">
         <div class="container">
-          <h3 class="oh-desktop"><span class="d-inline-block wow slideInDown">Nos Activités</span></h3>
+          <h3 class="oh-desktop"><span class="d-inline-block wow slideInDown">La vie au Club</span></h3>
+
           <div class="row row-md row-30">
-            <div class="col-sm-6 col-lg-4">
-              <div class="oh-desktop">
-                <!-- Services Terri-->
-                <article class="services-terri wow slideInUp">
-                  <div class="services-terri-figure"><img src="media/stock-photo-give-us-a-kiss-a-young-woman-and-her-horse-look-at-each-other-with-a-look-of-love-1343346290.jpg" alt="" width="370" height="278"/>
-                  </div>
-                  <div class="services-terri-caption"><span class="services-terri-icon linearicons-leaf"></span>
-                    <h5 class="services-terri-title"><a href="#">Balades</a></h5>
-                  </div>
-                </article>
-              </div>
-            </div>
+
             <div class="col-sm-6 col-lg-4">
               <div class="oh-desktop">
                 <!-- Services Terri-->
@@ -110,31 +100,16 @@
                   <div class="services-terri-figure"><img src="media/stock-photo-beautiful-draft-horse-on-the-pasture-large-horse-bred-to-be-a-working-animal-doing-hard-tasks-such-1860914509.jpg" alt="" width="370" height="278"/>
                   </div>
                   <div class="services-terri-caption"><span class="services-terri-icon linearicons-star"></span>
-
                     <form action="./controller/CoursController.php" method="post">
                         <input type="hidden" name="display_cours">
                         <h5 class="services-terri-title"><input value="Les cours" type="submit"></h5>
-                      </form>
+                    </form>
                       
                   </div>
                 </article>
               </div>
             </div>
-            <div class="col-sm-6 col-lg-4">
-              <div class="oh-desktop">
-                <!-- Services Terri-->
-                <article class="services-terri wow slideInUp">
-                  <div class="services-terri-figure"><img src="media/stock-photo-the-eye-of-the-horse-1879808221.jpg" alt="" width="370" height="278"/>
-                  </div>
-                  <div class="services-terri-caption"><span class="services-terri-icon linearicons-trophy"></span>
-                    <h5 class="services-terri-title"><a href="#">Préparation Compétition</a></h5>
-                  </div>
-                </article>
-              </div>
-            </div>
-          </div>
-          <h3 class="oh-desktop"><span class="d-inline-block wow slideInDown">La vie au Club</span></h3>
-          <div class="row row-md row-30">
+
             <div class="col-sm-6 col-lg-4">
               <div class="oh-desktop">
                 <!-- Services Terri-->
@@ -150,6 +125,7 @@
                 </article>
               </div>
             </div>
+
             <div class="col-sm-6 col-lg-4">
               <div class="oh-desktop">
                 <!-- Services Terri-->
@@ -157,19 +133,10 @@
                   <div class="services-terri-figure"><img src="media/stock-photo-close-up-portrait-of-horse-1889100730.jpg" alt="" width="370" height="278"/>
                   </div>
                   <div class="services-terri-caption"><span class="services-terri-icon linearicons-sun"></span>
-                    <h5 class="services-terri-title"><a href="#">Galeries</a></h5>
-                  </div>
-                </article>
-              </div>
-            </div>
-            <div class="col-sm-6 col-lg-4">
-              <div class="oh-desktop">
-                <!-- Services Terri-->
-                <article class="services-terri wow slideInDown">
-                  <div class="services-terri-figure"><img src="media/stock-photo-welsh-pony-running-and-standing-in-high-grass-long-mane-brown-horse-galloping-brown-horse-1175510683.jpg" alt="" width="370" height="278"/>
-                  </div>
-                  <div class="services-terri-caption"><span class="services-terri-icon linearicons-tree"></span>
-                    <h5 class="services-terri-title"><a href="#">Evenementiel</a></h5>
+                    <form action="./controller/ChevalController.php" method="post">
+                        <input type="hidden" name="display_gallery">
+                        <h5 class="services-terri-title"><input value="Galerie" type="submit"></h5>
+                    </form>
                   </div>
                 </article>
               </div>
@@ -186,7 +153,7 @@
               <div class="col-sm-8 col-md-7 col-lg-5">
                 <div class="cta-modern">
                   <h3 class="cta-modern-title wow fadeInRight">Notre Histoire</h3>
-                  <p class="lead">Parmis les premiers centres équestre de la région, il a été fondé au coeur d'une des plus belles forêts de France</p>
+                  <p class="lead">Parmi les premiers centres équestres de la région, il a été fondé au coeur d'une des plus belles forêts de France</p>
                 </div>
               </div>
             </div>

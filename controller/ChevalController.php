@@ -21,6 +21,10 @@ if(isset($_POST["action"]) && $_POST["action"] == "index"){
     return require_once "../vue/che/che_index.php";
 }
 
+if(isset($_POST["display_gallery"])) {
+    require "../vue/front_gallery.php";
+}
+
 if(isset($_POST["front_che"])){
 
     $data = get_all_che();
