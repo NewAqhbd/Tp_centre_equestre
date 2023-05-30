@@ -32,7 +32,7 @@ require $headerpath;
     
     var calendar = $('#calendar').fullCalendar({  
       eventTextColor: 'white',
-      displayEventTime: false,
+      displayEventTime: true,
       editable: true,  
       header: {  
           left:   'prev,next, today',  

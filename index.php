@@ -110,7 +110,12 @@
                   <div class="services-terri-figure"><img src="media/stock-photo-beautiful-draft-horse-on-the-pasture-large-horse-bred-to-be-a-working-animal-doing-hard-tasks-such-1860914509.jpg" alt="" width="370" height="278"/>
                   </div>
                   <div class="services-terri-caption"><span class="services-terri-icon linearicons-star"></span>
-                    <h5 class="services-terri-title"><a href="#">Cours Galop</a></h5>
+
+                    <form action="./controller/CoursController.php" method="post">
+                        <input type="hidden" name="display_cours">
+                        <h5 class="services-terri-title"><input value="Les cours" type="submit"></h5>
+                      </form>
+                      
                   </div>
                 </article>
               </div>
