@@ -23,6 +23,7 @@ if(isset($_SESSION['connecte'])
     && !isset($_POST["front_che"])
     && !isset($_POST["che_details"])
     && !isset($_POST["display_cours"])
+    && !isset($_POST["display_gallery"])
 
 
     ){ 
