@@ -22,11 +22,15 @@ if(isset($_SESSION['connecte'])
     && !isset($_POST["create_account_admin"]) 
     && !isset($_POST["front_che"])
     && !isset($_POST["che_details"])
+    && !isset($_POST["display_cours"])
+
+
     ){ 
 
-    if($actual_link !== "http://localhost/tp_centre_equestre/") {?>
-    <script>window.location.replace('../vue/connexion.php')</script>
-<?php }}
+    if($actual_link !== "http://localhost/tp_centre_equestre/" && $actual_link !== "http://localhost/tp_centre_equestre/vue/cours/loadCours.php") {
+        // <script>window.location.replace('../vue/connexion.php')</script>
+        header('Location: http://localhost/tp_centre_equestre/vue/connexion.php');
+    }}
 
 
 try {

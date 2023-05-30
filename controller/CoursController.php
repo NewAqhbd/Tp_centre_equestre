@@ -15,8 +15,12 @@ if(isset($_POST["action"]) && $_POST["action"] == "cours"){
 
 }
 
+if(isset($_POST["display_cours"])) {
+    include "../vue/cours/cours_display.php";
+}
 
-if(isset($_POST) && $_POST["action"] == "add"){
+
+if(isset($_POST["action"]) && $_POST["action"] == "add"){
     global $con;
     $req = $con->query("SELECT id_cours FROM cours ORDER BY id_cours DESC LIMIT 1");
     $id = $req->fetchColumn() + 1;
@@ -75,7 +79,7 @@ if(isset($_POST) && $_POST["action"] == "add"){
 
 }
 
-if(isset($_POST) && $_POST["action"] == "rename"){
+if(isset($_POST["action"]) && $_POST["action"] == "rename"){
     global $con;
     $sql = "UPDATE cours SET title = :title WHERE id_cours = :idCours";
     $req = $con->prepare($sql);
@@ -84,7 +88,7 @@ if(isset($_POST) && $_POST["action"] == "rename"){
     echo json_encode($req->execute());
 }
 
-if(isset($_POST) && $_POST["action"] == "update") {
+if(isset($_POST["action"]) && $_POST["action"] == "update") {
     global $con;
     $start = new DateTime($_POST['startEvent']);
     $end = new DateTime($_POST['endEvent']);
@@ -103,7 +107,7 @@ if(isset($_POST) && $_POST["action"] == "update") {
 
 }
 
-if(isset($_POST) && $_POST["action"] == "updateAll"){
+if(isset($_POST["action"]) && $_POST["action"] == "updateAll"){
     global $con;
 
     $sql = "SELECT * FROM ".DB_TABLE_COURS." WHERE id_cours = :id ;";
@@ -138,7 +142,7 @@ if(isset($_POST) && $_POST["action"] == "updateAll"){
     exit;
 }
 
-if(isset($_POST) && $_POST["action"] == "delete"){
+if(isset($_POST["action"]) && $_POST["action"] == "delete"){
     global $con;
     $sql = "UPDATE ".DB_TABLE_COURS." SET actif = :actif WHERE id_cours = :id AND id_week_cours = :idWeekCours;";
     $req = $con->prepare($sql);
@@ -152,7 +156,7 @@ if(isset($_POST) && $_POST["action"] == "delete"){
 
 }
 
-if(isset($_POST) && $_POST["action"] == "deleteAll"){
+if(isset($_POST["action"]) && $_POST["action"] == "deleteAll"){
     global $con;
     $sql = "UPDATE ".DB_TABLE_COURS." SET actif = :actif WHERE id_cours = :id ;";
     $req = $con->prepare($sql);
@@ -165,7 +169,7 @@ if(isset($_POST) && $_POST["action"] == "deleteAll"){
 
 }
 
-if(isset($_POST) && $_POST["action"] == "resize"){
+if(isset($_POST["action"]) && $_POST["action"] == "resize"){
     global $con;
 
     $sql = "SELECT * FROM ".DB_TABLE_COURS." WHERE id_cours = :id ;";
