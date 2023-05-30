@@ -48,25 +48,27 @@ if(isset($_POST) && $_POST["action"] == "add"){
 
     $tempDate = clone $start;
     
-    while ($date_end >= $tempDate->modify('+7 days')) {
-        $weekid++;
-        $start = date_add($start, date_interval_create_from_date_string("7 days"));
-        $end = date_add($end, date_interval_create_from_date_string("7 days"));
+    if(!empty($_POST["date_end"])) {
+        while ($date_end >= $tempDate->modify('+7 days')) {
+            $weekid++;
+            $start = date_add($start, date_interval_create_from_date_string("7 days"));
+            $end = date_add($end, date_interval_create_from_date_string("7 days"));
 
-        $sql = "INSERT INTO ".DB_TABLE_COURS." ( id_cours, id_week_cours, start_event, end_event, title, actif ) 
-        VALUES ( :id, :id_week_cours, :date_debut, :date_fin, :titre, :actif );";
-        $req = $con->prepare($sql);
-        $req->bindValue(":date_debut",$start->format("Y-m-d h:m-s"),PDO::PARAM_STR);
-        $req->bindValue(":date_fin",$end->format("Y-m-d h:m-s"),PDO::PARAM_STR);
-        $req->bindValue(":titre",$_POST["title"],PDO::PARAM_STR);
-        $req->bindValue(":actif",1,PDO::PARAM_INT);
-        $req->bindValue(":id_week_cours",$weekid,PDO::PARAM_INT);
-        $req->bindValue(":id",$id,PDO::PARAM_INT); ?>
-        <script> console.log("<?= $req->queryString ?>")</script>
-        <?php
-        var_dump($req);
-        echo json_encode($req->execute());
+            $sql = "INSERT INTO ".DB_TABLE_COURS." ( id_cours, id_week_cours, start_event, end_event, title, actif ) 
+            VALUES ( :id, :id_week_cours, :date_debut, :date_fin, :titre, :actif );";
+            $req = $con->prepare($sql);
+            $req->bindValue(":date_debut",$start->format("Y-m-d h:m-s"),PDO::PARAM_STR);
+            $req->bindValue(":date_fin",$end->format("Y-m-d h:m-s"),PDO::PARAM_STR);
+            $req->bindValue(":titre",$_POST["title"],PDO::PARAM_STR);
+            $req->bindValue(":actif",1,PDO::PARAM_INT);
+            $req->bindValue(":id_week_cours",$weekid,PDO::PARAM_INT);
+            $req->bindValue(":id",$id,PDO::PARAM_INT); ?>
+            <script> console.log("<?= $req->queryString ?>")</script>
+            <?php
+            var_dump($req);
+            echo json_encode($req->execute());
 
+        }
     }
     
     exit;
@@ -75,20 +77,33 @@ if(isset($_POST) && $_POST["action"] == "add"){
 
 if(isset($_POST) && $_POST["action"] == "rename"){
     global $con;
-    var_dump("Controller achieved !!!");
-    var_dump($_POST["idCours"]);
-    var_dump($_POST["titleUpdate"]);
     $sql = "UPDATE cours SET title = :title WHERE id_cours = :idCours";
     $req = $con->prepare($sql);
     $req->bindValue(":idCours", $_POST["idCours"], PDO::PARAM_STR);
     $req->bindValue(":title", $_POST["titleUpdate"], PDO::PARAM_STR);
     echo json_encode($req->execute());
+}
 
+if(isset($_POST) && $_POST["action"] == "update") {
+    global $con;
+    $start = new DateTime($_POST['startEvent']);
+    $end = new DateTime($_POST['endEvent']);
+    var_dump($start);
+    var_dump($end);?>
+    <script>console.log("controller !!!!!")</script>
 
+<?php
+    $sql = "UPDATE cours SET start_event = :startEvent, end_event = :endEvent WHERE id_cours = :idCours AND id_week_cours = :idWeekCours";
+    $req = $con->prepare($sql);
+    $req->bindValue(':idCours', $_POST["idCours"]);
+    $req->bindValue(':idWeekCours', $_POST["idWeekCours"]);
+    $req->bindValue(':startEvent', $start->format("Y-m-d h:m-s"), PDO::PARAM_STR);
+    $req->bindValue(':endEvent', $end->format("Y-m-d h:m-s"), PDO::PARAM_STR);
+    echo json_encode($req->execute());
 
 }
 
-if(isset($_POST) && $_POST["action"] == "update"){
+if(isset($_POST) && $_POST["action"] == "updateAll"){
     global $con;
 
     $sql = "SELECT * FROM ".DB_TABLE_COURS." WHERE id_cours = :id ;";

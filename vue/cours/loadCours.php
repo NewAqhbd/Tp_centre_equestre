@@ -10,9 +10,11 @@ $result = $req->fetchAll();
 foreach($result as $row) {
     $cours[] = [
         'id'              => $row["id_cours"],
+        'idWeek'          => $row["id_week_cours"],
         'title'           => $row["title"],
         'start'           => $row["start_event"],
         'end'             => $row["end_event"],
+        
     ];
 }
 
