@@ -1,6 +1,0 @@
-<?php 
-
-//Default Controller
-/**
- * 
- */

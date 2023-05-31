@@ -243,7 +243,6 @@ require $headerpath;
 
 
     let week_increment = 0;
-    //$_POST["id_cav"],1,$_POST["week_increment"]
     function changeWeek(a){
         week_increment += a
 

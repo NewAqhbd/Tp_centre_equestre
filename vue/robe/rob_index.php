@@ -28,7 +28,7 @@ require $headerpath;
 <table id="rob_list">
     <thead>
         <tr>
-            <th>Libelle</th>
+            <th>Libellé</th>
             <th>Modifier</th>
             <th>Supprimer</th>
         </tr>

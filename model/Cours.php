@@ -11,8 +11,8 @@ function get_all_cou()
     $req = $con->prepare($sql);
     $req->bindValue(':actif',1,PDO::PARAM_INT);
     try {
-         $req->execute();
-         return $req->fetchAll();
+        $req->execute();
+        return $req->fetchAll();
     } catch (PDOException $e) {
         return $e->getMessage();
     }
@@ -28,9 +28,9 @@ function a(int $id){
     try {
         $req->execute();
         return $req->fetch();
-   } catch (PDOException $e) {
-       return $e->getMessage();
-   }
+    } catch (PDOException $e) {
+        return $e->getMessage();
+    }
 }
 
 function b(int $id){
@@ -42,8 +42,8 @@ function b(int $id){
     try {
         $req->execute();
         return $req->fetchAll();
-   } catch (PDOException $e) {
-       return $e->getMessage();
-   }
+    } catch (PDOException $e) {
+        return $e->getMessage();
+    }
 }
 

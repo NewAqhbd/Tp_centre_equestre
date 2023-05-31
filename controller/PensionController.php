@@ -110,7 +110,7 @@ if(isset($_POST["action"]) && $_POST["action"] == "form"){
         return require_once "../vue/pen/pen_form.php";
     }
 
-    //Sauvegarde en cas de rafraichissement de la page ou d'erreur formulaire
+    //Sauvegarde en cas de rafraîchissement de la page ou d'erreur formulaire
     $infosaved = $_POST;
     $error = null;
 
@@ -178,7 +178,6 @@ if(isset($_POST["action"]) && $_POST["action"] == "form"){
             return require_once "../vue/pen/pen_form.php";
         }else{
             $data = get_all_pension();
-           //var_dump(update_pension($pension,$_POST["id_pension"]));
             return require_once "../vue/pen/pen_index.php";
         }
     }

@@ -10,7 +10,7 @@ class Cavalier extends Personne{
 
     //Property
     private string  $cav_photo;
-    private string     $cav_galop;
+    private string  $cav_galop;
     private string  $cav_nlic;
     private int     $cav_actif = 1;
 

@@ -1,6 +1,6 @@
-
 <?php
 require "../../inc/bdd.inc.php";
+
 global $con;
 $sql = "SELECT * FROM ". DB_TABLE_COURS." WHERE actif = :actif ORDER BY id_cours ;";
 $req = $con->prepare($sql);

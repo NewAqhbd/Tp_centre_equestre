@@ -29,7 +29,7 @@ require $headerpath;
 
             <!-- Input Cottisation  * 2 -->
             <div class="form-group col">
-                <label for="iCotisationIns">Libelle de la Robe*</label>
+                <label for="iCotisationIns">Libellé de la Robe*</label>
                 <input type="text" name="libelle_rob" id="iLibelleRob" value="<?= isset($infosaved["libelle_rob"]) ? $infosaved["libelle_rob"] : "";  ?>" required>
             </div>
 

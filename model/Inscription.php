@@ -1,8 +1,8 @@
 <?php
 
 /**
- * Selectionne tous les inscriptions de la table
- * On distingue un inscription d'un représentant par la valeur de sa license 
+ * Selectionne toutes les inscriptions de la table
+ * On distingue une inscription d'un représentant par la valeur de sa licence 
  */
 function get_all_ins()
 {
@@ -54,7 +54,6 @@ function add_ins(Inscription $inscription)
     $sql = "INSERT INTO ".DB_TABLE_INSCRIPTION." (montant_cotisation, montant_ffe, annee,id_cav) 
                                     VALUES ( :ins_cotisation, :ins_ffe, :ins_annee , :id_cav);";
     $req = $con->prepare($sql);
-    //FAIRE PARAM
     $req->bindValue(":ins_cotisation",$inscription->getCottisation(),PDO::PARAM_INT);
     $req->bindValue(":ins_ffe",$inscription->getFFE(),PDO::PARAM_INT);
     $req->bindValue(":ins_annee",$inscription->getAnnee(),PDO::PARAM_STR);
@@ -93,7 +92,6 @@ function update_ins(Inscription $inscription, int $id)
                                             id_cav = :id_cav 
                                         WHERE id_inscription = :id ;";
     $req = $con->prepare($sql);
-    // FAIRE PARAM
     $req->bindValue(":ins_cotisation",$inscription->getCottisation(),PDO::PARAM_INT);
     $req->bindValue(":ins_ffe",$inscription->getFFE(),PDO::PARAM_INT);
     $req->bindValue(":ins_annee",$inscription->getAnnee(),PDO::PARAM_STR);

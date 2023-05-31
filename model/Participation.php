@@ -1,8 +1,8 @@
 <?php
 
 /**
- * Selectionne tous les inscriptions de la table
- * On distingue un inscription d'un représentant par la valeur de sa license 
+ * Sélectionne toutes les inscriptions de la table
+ * On distingue une inscription d'un représentant par la valeur de sa licence 
  */
 function get_all_weekly_part_by_id(int $id,int $actif,int $week_increment = 0)
 {
@@ -40,8 +40,8 @@ function add_part(int $id_cav,int $id_cours){
     global $con;
 
     
-    //Selectionne le nombre de cours selon l'id cours
-    //J'insère une ligne par cour pour chaque participation de l'utilisateur
+    //Sélectionne le nombre de cours selon l'id cours
+    //J'insère une ligne par cours pour chaque participation de l'utilisateur
     //Check si la participation existe déja
     $sql = "SELECT * FROM ".DB_TABLE_PARTICIPATION." WHERE id_cav = :id_cav AND id_cour = :id_cour ";
     $req = $con->prepare($sql);

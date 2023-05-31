@@ -2,7 +2,7 @@
 
 require "../inc/bdd.inc.php";
 // REQUEST
-$keyword = "%".$_POST['keyword']."%"; //'%' on cherchera n'importe quel valeur contenant la chaîne de charactère $keyword
+$keyword = "%".$_POST['keyword']."%"; //'%' on cherchera n'importe quelle valeur contenant la chaîne de caractère $keyword
 
 $sql = "SELECT * FROM ". DB_TABLE_CHEVAL ." WHERE nom_cheval LIKE (:var)";
 $req = $con->prepare($sql);

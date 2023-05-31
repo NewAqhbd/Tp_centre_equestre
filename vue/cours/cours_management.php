@@ -6,11 +6,8 @@ if (isset($_SESSION['connecte']) && $_SESSION['connecte'] === true && $_SESSION[
 }
 $pagename = 'Gestion des cours';
 require $headerpath;
-// require "../header.php";
-// $pagename = 'Gestion des Cours';
-// require $headerpath;
-
 ?>
+
 <head>
   <link rel="stylesheet" href="http://localhost/tp_centre_equestre/css/fullcalendar.min.css">
   <!-- <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.5/index.global.min.js'></script> -->
@@ -20,6 +17,7 @@ require $headerpath;
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>  
   <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/locale/fr.js"></script>
 </head>
+
 <script>  
   var eventId;
   var eventIdWeek;
@@ -102,21 +100,6 @@ require $headerpath;
         $("#update-form").dialog("open");
       },
 
-      // eventClick: function(event) {  
-      //   var decision = confirm("Voulez-vous vraiment supprimer ?");   
-      //       if (decision) {  
-      //           $.ajax({  
-      //               type:"POST",
-      //               url: "http://localhost/tp_centre_equestre/controller/CoursController.php",  
-      //               data: "&id=" + event.id +'&action=delete',  
-      //               success: function(json) {  
-      //                   calendar.fullCalendar('removeEvents', event.id);  
-      //                   alert("Updated Successfully");
-      //                   console.log(json)
-      //               }  
-      //           });  
-      //       }  
-      //   },
       eventResize: function(event, startDelta, endDelta) {
           var start = $.fullCalendar.formatDate(event.start, "Y-MM-DD HH:mm:ss");  
           var end = $.fullCalendar.formatDate(event.end, "Y-MM-DD HH:mm:ss");
@@ -161,7 +144,6 @@ require $headerpath;
           tips.removeClass( "ui-state-highlight", 1500 );
         }, 500 );
       }
-  
   
       function addEvent() {
         var valid = true;
@@ -296,32 +278,8 @@ require $headerpath;
         renameEvent();
       });
   });  
+</script>
 
-  // function updateStartDateTimeValue() {
-  //   console.log("Update start_event triggered !!!");
-  //   // Get the value of the datetime-local input
-  //   var dateTimeInput = document.getElementById('start_event_update');
-  //   var combinedDateTime = dateTimeInput.value;
-
-  //   // Set the value of any other hidden input field if needed
-  //   var hiddenInput = document.getElementById('start_event_update_value');
-  //   hiddenInput.value = combinedDateTime;
-  //   console.log(combinedDateTime);
-  // }
-
-  // function updateEndDateTimeValue() {
-  //   console.log("Update end_event triggered !!!");
-  //   // Get the value of the datetime-local input
-  //   var dateTimeInput = document.getElementById('end_event_update');
-  //   var combinedDateTime = dateTimeInput.value;
-
-  //   // Set the value of any other hidden input field if needed
-  //   var hiddenInput = document.getElementById('end_event_update_value');
-  //   hiddenInput.value = combinedDateTime;
-  //   console.log(combinedDateTime);
-  // }
-
-</script>  
 <style> 
 body {  
     margin-top: 40px;  
@@ -330,7 +288,8 @@ body {
 
     font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;  
   }   
-</style>  
+</style>
+
 
 <div id="dialog-form" title="Ajouter un cours">
   <p class="validateTips">Tous les champs sont requis</p>
@@ -375,9 +334,6 @@ body {
     </fieldset>
   </form>
 </div>
-
-
-<!--<button id="create-user">Create new user</button>-->
 
 
 <div id="calendar" class="" ></div>

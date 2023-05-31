@@ -2,7 +2,7 @@
 
 /**
  * Selectionne tous les cavaliers de la table
- * On distingue un cavalier d'un représentant par la valeur de sa license 
+ * On distingue un cavalier d'un représentant par la valeur de sa licence 
  */
 function get_all_cav()
 {

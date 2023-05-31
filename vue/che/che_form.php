@@ -176,7 +176,6 @@ else{ ?>
 <script>
     function setInputValueCav(e)
     {
-        //console.log(list);
         $("#id_proprietaire").val(e.getAttribute('value'))
         $("#nom_proprietaire").val(e.innerHTML )
         $("#list_cavalier").hide();

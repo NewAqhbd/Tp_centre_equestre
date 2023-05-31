@@ -142,7 +142,7 @@ else{ ?>
                 </div>
             </div>
             <div class="form-group col">
-                <label for="iLicCavalier">N° License FFE*</label>
+                <label for="iLicCavalier">N° Licence FFE*</label>
                 <input type="text" pattern="[A-Z]{7}[1-9]{1}" name="numlic" value="<?= isset($infosaved) ? $infosaved["numlic"] : "";  ?>" class="form-control" id="iLicCavalier" placeholder="7 lettres + 1 chiffre" required>
             </div>
             <div class="form-group col">
@@ -272,7 +272,7 @@ else{ ?>
 
     /**
      * Fonction show
-     * Permet l'affichage dynamic du formulaire
+     * Permet l'affichage dynamique du formulaire
      */
     function show(value){
         if(value == 0){

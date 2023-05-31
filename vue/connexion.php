@@ -1,6 +1,6 @@
 <?php
 
-$pagename = 'Connexion';
+$pagename = 'Se connecter';
 require_once '../vue/header.php';
 
 

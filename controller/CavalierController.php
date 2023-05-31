@@ -136,10 +136,10 @@ if(isset($_POST["action"]) && $_POST["action"] == "form"){
     
     
     
-    //Sauvegarde en cas de rafraichissement de la page ou d'erreur formulaire   
+    //Sauvegarde en cas de rafraîchissement de la page ou d'erreur formulaire   
     $infosaved = $_POST;
 
-    // Validation de l' input photo
+    // Validation de l'input photo
     require "../inc/photo.trait.php";
 
     if ($_FILES['photo']['size'] <= 0 ) {
@@ -151,17 +151,14 @@ if(isset($_POST["action"]) && $_POST["action"] == "form"){
             return require_once "../vue/cav/cavrep_form.php";
         }
         $photo = $_FILES['photo']['name'];
-        // var_dump($photo . "1");
-        // die();
+
     }else {
         $data = get_one_cav((int)$_POST["id_personne"]);
         // $photo = "choose-image.png";
     }
 
-    // $infosaved = array_merge($infosaved, array('photoName' => $photo));
-    // Validation de la composition du numéro de license
+    // Validation de la composition du numéro de licence
     // 7 caractères alphabétiques + 1 caractère numérique
-    // Plus d'info --> Rechercher "regex php"
     if( !preg_match('/[A-Z]{7}[1-9]{1}/',$_POST["numlic"]) ){
         $error= "numlic";
         return require_once "../vue/cav/cavrep_form.php";
@@ -173,9 +170,9 @@ if(isset($_POST["action"]) && $_POST["action"] == "form"){
                                                     $_POST["datenaissance"],
                                                     $_POST["mail"],
                                                     $_POST["tel"],
-                                                    $photo,
                                                     $_POST["galop"],
                                                     $_POST["numlic"],
+                                                    $photo,
                                                     $_POST["rue"],
                                                     $_POST["numaddr"],
                                                     $_POST["codep"],
@@ -189,7 +186,6 @@ if(isset($_POST["action"]) && $_POST["action"] == "form"){
                 echo $error;
                 return require_once "../vue/cav/cavrep_form.php";
             }else {
-                //var_dump(update_cavRep($cavalierRep,$_POST["id_personne"]));
                 $data = get_all_cav();
                 return require_once "../vue/cav/cav_index.php";
             }
@@ -240,11 +236,8 @@ if(isset($_POST["action"]) && $_POST["action"] == "form"){
                 $error = "updrep";
                 return require_once "../vue/cav/cav_form.php";
             }else{
-            $data = get_all_cav();
-            //var_dump(update_cav($cavalier,$_POST["id_personne"]));
-            //var_dump(update_rep($representant,$_POST["idrep"]));
-
-            return require_once "../vue/cav/cav_index.php";
+                $data = get_all_cav();
+                return require_once "../vue/cav/cav_index.php";
             }
         }
 
