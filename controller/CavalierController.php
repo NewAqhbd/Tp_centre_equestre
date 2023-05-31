@@ -123,9 +123,9 @@ if(isset($_POST["action"]) && $_POST["action"] == "form"){
             $_POST["cav_dna"],
             $_POST["cav_mail"],
             $_POST["cav_tel"],
-            $photo,
             $_POST["galop"],
-            $_POST["numlic"]
+            $_POST["numlic"],
+            $photo,
         );
 
         update_cav($cavalier, $_POST["cav_id"]);
@@ -216,9 +216,9 @@ if(isset($_POST["action"]) && $_POST["action"] == "form"){
                                     $_POST["datenaissance"],
                                     $_POST["mail"],
                                     $_POST["tel"],
-                                    $photo,
                                     $_POST["galop"],
-                                    $_POST["numlic"]
+                                    $_POST["numlic"],
+                                    $photo,
         );
         $representant = new Representant($_POST["nomrep"],
                                             $_POST["prenomrep"],

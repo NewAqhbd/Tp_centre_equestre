@@ -61,8 +61,8 @@
               <div class="container">
                 <div class="row">
                   <div class="col-sm-8 col-lg-8 offset-lg-1 offset-xxl-0">
-                    <h1 class="oh swiper-title"><span class="d-inline-block" data-caption-animate="slideInDown" data-caption-delay="0">Parmis les plus beaux environnements de la corrèze</span></h1>
-                    <p class="big swiper-text" data-caption-animate="fadeInRight" data-caption-delay="300">Grâçe à 2 milles hectares de végétation au coeur de la plus belle région de France</p>
+                    <h1 class="oh swiper-title"><span class="d-inline-block" data-caption-animate="slideInDown" data-caption-delay="0">Parmi les plus beaux environnements de la corrèze</span></h1>
+                    <p class="big swiper-text" data-caption-animate="fadeInRight" data-caption-delay="300">Grâçe à 2 mille hectares de végétation au coeur de la plus belle région de France</p>
                     <div class="button-wrap oh"><a class="button button-lg button-primary button-winona button-shadow-2" href="#" data-caption-animate="slideInUp" data-caption-delay="0">Découvrez le centre</a></div>
                   </div>
                 </div>
@@ -186,7 +186,7 @@
             <article class="quote-tara">
               <div class="quote-tara-caption">
                 <div class="quote-tara-text">
-                  <p class="q">Une magnifique balade, qui m'a été offert pour mon anniversaire. Une journée inoubliable</p>
+                  <p class="q">Une magnifique balade, qui m'a été offerte pour mon anniversaire. Une journée inoubliable</p>
                 </div>
                 <div class="quote-tara-figure"><img src="assets/img/user-8-115x115.jpg" alt="" width="115" height="115"/>
                 </div>
@@ -209,7 +209,7 @@
             <article class="quote-tara">
               <div class="quote-tara-caption">
                 <div class="quote-tara-text">
-                  <p class="q">Un staff de qualité qui s'est extremement bien occupée de mon cheval lors de sa pension</p>
+                  <p class="q">Un staff de qualité qui s'est extrêmement bien occupé de mon cheval lors de sa pension</p>
                 </div>
                 <div class="quote-tara-figure"><img src="assets/img/user-9-115x115.jpg" alt="" width="115" height="115"/>
                 </div>
