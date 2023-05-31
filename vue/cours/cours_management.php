@@ -18,6 +18,7 @@ require $headerpath;
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>  
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>  
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/locale/fr.js"></script>
 </head>
 <script>  
   var eventId;
@@ -30,7 +31,7 @@ require $headerpath;
     var m = date.getMonth();  
     var y = date.getFullYear();  
     
-    var calendar = $('#calendar').fullCalendar({  
+    var calendar = $('#calendar').fullCalendar({ 
       eventTextColor: 'white',
       displayEventTime: true,
       editable: true,  
@@ -39,6 +40,13 @@ require $headerpath;
           center: 'title',  
           right:  'month,agendaWeek,agendaDay'  
       },
+      buttonText: {
+          today: 'Ajourd\'hui',
+          month: 'Mois',
+          week: 'Semaine',
+          day: 'Jour'
+      },
+      locale: 'fr',
     
       events: {
         url: "http://localhost/tp_centre_equestre/vue/cours/loadCours.php",
