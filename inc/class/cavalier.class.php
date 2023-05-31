@@ -10,12 +10,12 @@ class Cavalier extends Personne{
 
     //Property
     private string  $cav_photo;
-    private int     $cav_galop;
+    private string     $cav_galop;
     private string  $cav_nlic;
     private int     $cav_actif = 1;
 
     //Constructor
-    public function __construct($nom,$prenom,$date,$m,$tel,$ph = "default.jpg", $g, $num)
+    public function __construct($nom,$prenom,$date,$m,$tel, $g, $num, $ph = "default.jpg")
     {
         parent::__construct($nom,$prenom,$date,$m,$tel);
         $this->cav_photo = $ph;
@@ -38,7 +38,7 @@ class Cavalier extends Personne{
     {
         return $this->cav_photo;
     }
-    public function getGalop():int
+    public function getGalop():string
     {
         return $this->cav_galop;
     }
