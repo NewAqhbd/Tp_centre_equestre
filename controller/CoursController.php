@@ -1,7 +1,4 @@
 <?php  
-//echo json_encode("level-0");
-//echo json_encode($_POST["action"]);
-
 require "../inc/bdd.inc.php";
 require "../model/Cavalier.php";
 require "../model/Representant.php";
@@ -42,13 +39,6 @@ if(isset($_POST["action"]) && $_POST["action"] == "add"){
     $req->bindValue(":actif",1,PDO::PARAM_INT);
 
     echo json_encode($req->execute());
-
-    // $sql = "SELECT LAST_INSERT_ID() FROM ".DB_TABLE_COURS." ;";
-    // $req = $con->prepare($sql);
-    // $req->execute();
-    // $resultat = $req->fetch();
-
-    // $id = $resultat[0];
 
     $tempDate = clone $start;
     
@@ -118,7 +108,6 @@ if(isset($_POST["action"]) && $_POST["action"] == "updateAll"){
 
     foreach ($data as $row ) {
 
-        //Incremente les date de début et de fin des nouvelles valeurs
         $start = date_add( new Datetime($row["start_event"]), date_interval_create_from_date_string($_POST["delta_days"]."days"));
         $start = date_add( $start, date_interval_create_from_date_string($_POST["delta_hours"]."hours"));
         $start = date_add( $start, date_interval_create_from_date_string($_POST["delta_minutes"]."minutes"));

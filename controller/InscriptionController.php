@@ -78,7 +78,7 @@ if(isset($_POST["action"]) && $_POST["action"] == "form"){
     
     
     
-    //Sauvegarde en cas de rafraichissement de la page ou d'erreur formulaire
+    //Sauvegarde en cas de rafraîchissement de la page ou d'erreur formulaire
     $infosaved = $_POST;
 
 

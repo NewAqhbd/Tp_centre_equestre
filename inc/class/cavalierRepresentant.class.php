@@ -16,9 +16,9 @@ private string $car_cp;
 private string $car_ville;
 private string $car_pays;
 //Constructor
-public function __construct($nom,$prenom,$date,$m,$tel,$ph, $g, $num,$r ,$n, $cp, $v, $p)
+public function __construct($nom,$prenom,$date,$m,$tel, $g, $num, $ph, $r ,$n, $cp, $v, $p)
 {
-    parent::__construct($nom,$prenom,$date,$m,$tel,$ph, $g, $num);
+    parent::__construct($nom,$prenom,$date,$m,$tel, $g, $num, $ph);
     $this->car_rue = $r;
     $this->car_comp = $n;
     $this->car_cp = $cp;

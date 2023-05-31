@@ -1,8 +1,8 @@
 <?php
 
 /**
- * Selectionne tous les chevals de la table
- * On distingue un cheval d'un représentant par la valeur de sa license 
+ * Sélectionne tous les chevaux de la table
+ * On distingue un cheval d'un représentant par la valeur de sa licence 
  */
 function get_all_rob()
 {

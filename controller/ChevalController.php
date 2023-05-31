@@ -22,13 +22,13 @@ if(isset($_POST["action"]) && $_POST["action"] == "index"){
 }
 
 if(isset($_POST["display_gallery"])) {
-    require "../vue/front_gallery.php";
+    require "../vue/front/front_gallery.php";
 }
 
 if(isset($_POST["front_che"])){
 
     $data = get_all_che();
-    return require_once "../vue/front_che.php";
+    return require_once "../vue/front/front_che.php";
 }
 
 if(isset($_POST["action"]) && $_POST["action"] == "che_details"){
@@ -121,7 +121,7 @@ if(isset($_POST["action"]) && $_POST["action"] == "form"){
     //Sauvegarde en cas de rafraichissement de la page ou d'erreur formulaire
     $infosaved = $_POST;
 
-    // Validation de l' input photo
+    // Validation de l'input photo
     require "../inc/photo.trait.php";
     
     isset($_POST["subaction"]) && $_POST["subaction"] == "update" ? $toUpdate = true : $toUpdate = false ;

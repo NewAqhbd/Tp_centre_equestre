@@ -9,11 +9,11 @@
 class Cours{
 
     //Property
-    private int  $id_cours;
-    private int     $id_week_cours;
-    private string  $start_event;
-    private string     $end_event;
-    private string     $title;
+    private int $id_cours;
+    private int $id_week_cours;
+    private string $start_event;
+    private string $end_event;
+    private string $title;
 
     //Constructor
     public function __construct($id,$idw,$start,$end,$t)

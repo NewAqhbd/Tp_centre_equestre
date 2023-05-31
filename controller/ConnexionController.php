@@ -20,8 +20,6 @@ if(isset($_POST['deconnexion'])){
         $_SESSION['type'] = null;
     }
     header('Location: http://localhost/tp_centre_equestre/vue/connexion.php');
-    // return require_once '../vue/connexion.php';
-
 }
 
 if(isset($_POST['connexion_validation'])){

@@ -29,7 +29,6 @@ if(isset($_SESSION['connecte'])
     ){ 
 
     if($actual_link !== "http://localhost/tp_centre_equestre/" && $actual_link !== "http://localhost/tp_centre_equestre/vue/cours/loadCours.php") {
-        // <script>window.location.replace('../vue/connexion.php')</script>
         header('Location: http://localhost/tp_centre_equestre/vue/connexion.php');
     }}
 
@@ -42,8 +41,8 @@ try {
     $dbname = "tp_centre_equestre";
 
     $con = new PDO("mysql:host=$hostname;dbname=$dbname;charset=utf8mb4", $username, $password);
-    //echo "Connected to database";
-}catch(PDOException $e) {
+    
+} catch(PDOException $e) {
     echo $e->getMessage();
 }
 

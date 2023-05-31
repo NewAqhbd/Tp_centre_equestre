@@ -4,7 +4,7 @@ if (isset($_SESSION['connecte']) && $_SESSION['connecte'] === true && $_SESSION[
 } else {
     header('Location: http://localhost/tp_centre_equestre/');
 }
-$pagename = "Affichage";
+$pagename = "Détails pension";
 require $headerpath;
 ?>
 
